@@ -16,6 +16,8 @@ This project requires:-
  
  Start Unity and in the Unity hub window select 'Add'.  Then add the project by choosing the 'UnityPacmania' folder.
  
+Once the project is loaded into Unity, either 'Build and Run' the game or to play the game in the Unity editor, select the 'Scenes' and then 'Menus' folder and then load the 'Logo' scene.  This is the game’s initial scene.  Alternatively you can play any level by loaded the desired scene which starts with the name ‘level’.
+
 ## Playing the game
 Currently this game only works on keyboard with the arrow keys used to move pacman and the spacebar to jump.
 
