@@ -1,5 +1,5 @@
 # UnityPacmania
-A near perfect clone of the arcade game Pacmania done in the Unity game engine.  This version includes all original levels, cut-screens and menus.
+A clone of the arcade game Pacmania done in the Unity game engine.  This version includes all levels, cut-screens and menus.
 
 Because this a Unity game, it can work on Windows, Mac, Linux and will soon be playable on Android and iOS.  I’ve only tested this on Windows and Android so far.
 
@@ -34,7 +34,7 @@ Other keys (when in game):-
 This game was created with Unity and C#.
 
 ## Motivation
-This project exists simply for tutorial and educational purposes to help people learn how to create a classic 2D arcade game in Unity and C#.  This project focuses directly on the programming side and also using the Unity editor.  All the game media files are simply a copy from the original and added to the project.
+This project exists simply for tutorial and educational purposes to help people learn how to create a classic 2D arcade game in Unity and C#.  This project focuses directly on the programming side and also using the Unity editor.  The programming is done in a modern C# style using unity's component model.  All the game media files are based from the original and added to the project.
 
 To take advantage of this tutorial, it is presumed that a basic understanding of Unity and C# programming is required.
 
@@ -50,7 +50,7 @@ Although this game is a near perfect clone of the arcade version, there are smal
 
 - ‘Continue game?’ option is not included (it was simply there to encourage the player to add more coins).
 
-- Reverse engineering the AI for the ghosts was difficult, so I did a best approximation which worked well.  A lot of the AI is based on how the original pacman worked.  This is well documented online.
+- Understanding the original arcade ghost AI was difficult, so I did a best approximation which worked well.  A lot of the AI is based on how the original pacman worked.  This is well documented online.
 
 - The Hi score table is currently not persistent.
 
