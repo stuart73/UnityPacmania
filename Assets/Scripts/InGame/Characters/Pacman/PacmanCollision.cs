@@ -19,20 +19,17 @@ namespace Pacmania.InGame.Characters.Pacman
         }
 
         private CharacterMovement characterMovement;
-        private ScoreSpawner scoreSpawner;
         private Level level;
         // The distance between the center of pacman and something else which is considered touching. We square this number for efficiency.
         private const float touchingDistanceSqr = 8 * 8;  // 8 pixels
 
-        public event Action Dying = delegate { };
-        public event Action EatenGhost = delegate { };
+        public event Action Dying = delegate { };    
         public event Action EatenPellete = delegate { };
-
+  
         private void Awake()
         {
             characterMovement = GetComponent<CharacterMovement>();
             level = FindObjectOfType<Level>();
-            scoreSpawner = FindObjectOfType<ScoreSpawner>();
         }
 
         private void Start()
@@ -64,7 +61,7 @@ namespace Pacmania.InGame.Characters.Pacman
                 if (pickup is Pellet || pickup is PowerPellet)
                 {
                     EatenPellete();
-                }
+                } 
             }
         }
 
@@ -89,14 +86,11 @@ namespace Pacmania.InGame.Characters.Pacman
         private void OnTouchedGhost(GhostController ghost, out bool actionOccured)
         {
             actionOccured = false;
-            Type state = ghost.fsm.CurrrentState.GetType();
+            Type state = ghost.FSM.CurrrentState.GetType();
 
             if (state == typeof(FrightenState))
             {
-                ghost.Eaten();
-                level.AudioManager.Play(SoundType.EatGhost);
-                EatenGhost.Invoke();
-                scoreSpawner.SpawnScoreFromGhost(ghost);
+                ghost.Eaten();            
                 actionOccured = true;
             }
             else if (ghost.IsDeadly() == true && invincible == false)

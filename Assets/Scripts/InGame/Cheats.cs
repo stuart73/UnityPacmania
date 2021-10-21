@@ -27,7 +27,7 @@ namespace Pacmania.InGame
             }
             else if (Input.GetKeyDown(KeyCode.F5))
             {
-                FindObjectOfType<Level>().FSM.SetState(typeof(WinState));
+                FindObjectOfType<Level>().WinLevel();
             }
         }
     }

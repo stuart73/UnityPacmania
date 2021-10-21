@@ -5,6 +5,7 @@ using Pacmania.InGame.Characters.Ghost.GhostStates;
 using Pacmania.InGame.Characters.Pacman;
 using Pacmania.InGame.ScoreSprites;
 using Pacmania.InGame.Arenas;
+using Pacmania.Audio;
 using UnityEditor;
 
 namespace Pacmania.InGame.Characters.Ghost
@@ -22,7 +23,7 @@ namespace Pacmania.InGame.Characters.Ghost
         public Vector2Int DesiredDirection { get; set; } = new Vector2Int(0, -1);
         public Level Level { get; private set; }
 
-        public StateMachine fsm { get; private set; }
+        public StateMachine FSM { get; private set; }
         public Vector2Int TargetPosition { get; set; }
 
         protected CharacterMovement pacManMovement;
@@ -62,13 +63,13 @@ namespace Pacmania.InGame.Characters.Ghost
             states.Add(new ChassingState());
             states.Add(new RegenerateState());
             states.Add(new ConfusedState());
-            fsm = new StateMachine(gameObject, states);
+            FSM = new StateMachine(gameObject, states);
         }
 
         public void ResetState()
         {
             // Just reset to scatter. If the scatter chase timer is now in chase, then this will change over on the next state update.
-            fsm.SetState(typeof(ScatterState));
+            FSM.SetState(typeof(ScatterState));
         }
 
         public void Fright()
@@ -76,12 +77,12 @@ namespace Pacmania.InGame.Characters.Ghost
             if (IsDeadly() == true)
             {
                 ReverseDirection();
-                fsm.SetState(typeof(FrightenState));
+                FSM.SetState(typeof(FrightenState));
             }
-            else if (fsm.CurrrentState is FrightenState)
+            else if (FSM.CurrrentState is FrightenState)
             {
                 // Already in frighten sate, then re-enter frighten state to reset counters.
-                fsm.SetState(typeof(FrightenState));
+                FSM.SetState(typeof(FrightenState));
             }
         }
 
@@ -103,12 +104,14 @@ namespace Pacmania.InGame.Characters.Ghost
 
         public void Eaten()
         {
-            fsm.SetState(typeof(EatenState));
+            FSM.SetState(typeof(EatenState));
+            FindObjectOfType<ScoreSpawner>().SpawnScoreFromGhost(this);
+            FindObjectOfType<Level>().AudioManager.Play(SoundType.EatGhost);
         }
 
         public bool IsDeadly()
         {
-            return fsm.CurrrentState is DeadlyState;
+            return FSM.CurrrentState is DeadlyState;
         }
 
         private void CheckForChangeDirection()
@@ -123,7 +126,7 @@ namespace Pacmania.InGame.Characters.Ghost
                 bool allowedToGoBackIntoNest = false;
 
                 // We are allowed to consider going back into the ghost start nest position if we are in an eaten state.
-                if (fsm.CurrrentState is EatenState)
+                if (FSM.CurrrentState is EatenState)
                 {
                     allowedToGoBackIntoNest = true;
                 }
@@ -187,10 +190,10 @@ namespace Pacmania.InGame.Characters.Ghost
             {
                 return;
             }
-            fsm.Update();
+            FSM.Update();
 
             // debug purposes
-            currentStateString = fsm.CurrrentState.GetType().Name;
+            currentStateString = FSM.CurrrentState.GetType().Name;
 
             if (DesiredDirection.x != 0 || DesiredDirection.y != 0)
             {
@@ -213,7 +216,7 @@ namespace Pacmania.InGame.Characters.Ghost
                     Vector3 endPostion = characterMovement.Arena.GetTransformPositionFromArenaPosition(targetPosition);
                     Gizmos.color = GetComponent<ScoreColour>().ScoreColor;
                     Gizmos.DrawLine(transform.position, endPostion);
-                    Handles.Label(transform.position, this.fsm.CurrrentState.GetType().Name);
+                    Handles.Label(transform.position, this.FSM.CurrrentState.GetType().Name);
                 }
             }
 #endif

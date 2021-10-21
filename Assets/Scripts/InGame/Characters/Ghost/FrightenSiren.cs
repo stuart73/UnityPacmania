@@ -25,7 +25,7 @@ namespace Pacmania.InGame.Characters.Ghost
                 int frightenGhostCount = 0;
                 foreach (GhostController ghost in ghosts)
                 {
-                    if (ghost.fsm.CurrrentState.GetType() == typeof(FrightenState))
+                    if (ghost.FSM.CurrrentState.GetType() == typeof(FrightenState))
                     {
                         frightenGhostCount++;
                     }

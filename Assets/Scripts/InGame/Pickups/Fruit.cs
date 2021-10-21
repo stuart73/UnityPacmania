@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Pacmania.Audio;
 using Pacmania.InGame.ScoreSprites;
+using Pacmania.InGame.LevelStates;
 
 namespace Pacmania.InGame.Pickups
 {

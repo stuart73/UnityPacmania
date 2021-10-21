@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Pacmania.InGame.Characters.Ghost;
 using Pacmania.InGame.Pickups;
@@ -11,6 +12,8 @@ namespace Pacmania.InGame.ScoreSprites
 
         public int ScoreMultipler { get; set; } = 0;
         public bool RedPelletEaten { get; set; } = false;
+
+        public event Action Spawned = delegate { };
 
         private static readonly int[] GhostScoreFromEaten = { 0, 200, 400, 800, 1600, 3200, 7650 };
         private static readonly int[] GhostScoreFromEatenRedPellet = { 0, 400, 1600, 7650 };
@@ -79,6 +82,8 @@ namespace Pacmania.InGame.ScoreSprites
                 SpriteRenderer spriterender = risingScore.GetComponent<SpriteRenderer>();
                 spriterender.color = colour;
             }
+
+            Spawned();
         }
     }
 }

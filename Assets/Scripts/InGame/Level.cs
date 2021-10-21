@@ -10,6 +10,7 @@ using Pacmania.GameManagement;
 using Pacmania.InGame.LevelStates;
 using Pacmania.InGame.Arenas;
 using Pacmania.InGame.Pickups;
+using Pacmania.InGame.ScoreSprites;
 
 namespace Pacmania.InGame
 {
@@ -21,16 +22,18 @@ namespace Pacmania.InGame
             get { return levelNumber; }
         }
 
-        public Arena Arena { get; private set; }  
+        public Arena Arena { get; private set; }
         public Hud Hud { get; private set; }
         public PacmanController Pacman { get; private set; }
         public ScatterChaseTimer ScatterChaseTimer { get; private set; }
         public CharacterManager CharacterManager { get; private set; }
         public GhostManager GhostManager { get; private set; }
-        public StateMachine FSM { get; private set; }
+
         public Audio.AudioManager AudioManager { get; private set; }
         public SeedUniformRandomNumberStream RandomStream { get; private set; } = new SeedUniformRandomNumberStream(1);
-    
+
+        private StateMachine fsm;
+
         private void Awake()
         {
             Arena = FindObjectOfType<Arena>();
@@ -40,7 +43,7 @@ namespace Pacmania.InGame
             AudioManager = FindObjectOfType<Audio.AudioManager>();
             GhostManager = FindObjectOfType<GhostManager>();
             CharacterManager = new CharacterManager();
-          
+
             if (Arena == null)
             {
                 Debug.LogError("No arena found when starting level", this);
@@ -75,13 +78,23 @@ namespace Pacmania.InGame
         {
             if (Pacman != null)
             {
+                // Reguster with things the level needs to know about.
                 PacmanCollision pacmanCollision = Pacman.GetComponent<PacmanCollision>();
                 pacmanCollision.Dying += Pacman_Dying;
-                pacmanCollision.EatenGhost += Pacman_EatenGhost;
                 pacmanCollision.EatenPellete += Pacman_EatenPellete;
+                FindObjectOfType<ScoreSpawner>().Spawned += Score_Spawned;
             }
 
             Hud.RedrawFruit();
+        }
+
+        private void Score_Spawned()
+        {
+            // This check should not be needed but just in case.
+            if (fsm.CurrrentState.GetType() == typeof(PlayingState))
+            {
+                fsm.SetState(typeof(EatenPauseState));
+            }
         }
 
         private void GeneranteFSM()
@@ -93,21 +106,16 @@ namespace Pacmania.InGame
             states.Add(new DyingState());
             states.Add(new WinState());
             states.Add(new GameOverState());
-            FSM = new StateMachine(gameObject, states);
+            fsm = new StateMachine(gameObject, states);
         }
 
         private void FixedUpdate()
         {
-            if (FSM == null)
+            if (fsm == null)
             {
                 GeneranteFSM();
             }
-            FSM.Update();
-        }
-
-        private void Pacman_EatenGhost()
-        {
-            FSM.SetState(typeof(EatenPauseState));
+            fsm.Update();
         }
 
         private void Pacman_EatenPellete()
@@ -115,16 +123,22 @@ namespace Pacmania.InGame
             bool containsPellete = Arena.ContainsPickup<Pellet>();
             bool containsPowerPellete = Arena.ContainsPickup<PowerPellet>();
 
-            if (containsPellete ==false && containsPowerPellete ==false)
+            if (containsPellete == false && containsPowerPellete == false)
             {
-                FSM.SetState(typeof(WinState));
+                fsm.SetState(typeof(WinState));
             }
         }
 
         private void Pacman_Dying()
         {
-            FSM.SetState(typeof(DyingState));
-        }     
+            fsm.SetState(typeof(DyingState));
+        }
+
+        // Cheat method
+        public void WinLevel()
+        {
+            fsm.SetState(typeof(WinState));
+        }
     }
 }
 
