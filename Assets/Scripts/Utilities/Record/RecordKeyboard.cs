@@ -8,24 +8,24 @@ namespace Pacmania.Utilities.Record
     {
         public class KeyboardSnapshot
         {
-            public KeyboardSnapshot(int count, Vector2Int direction, bool jump)
+            public KeyboardSnapshot(int count, Vector2 direction, bool jump)
             {
                 this.count = count;
                 this.direction = direction;
                 this.jump = jump;
             }
             public int count;
-            public Vector2Int direction;
+            public Vector2 direction;
             public bool jump;
         }
 
         private List<KeyboardSnapshot> steps = new List<KeyboardSnapshot>();
 
-        private Vector2Int lastDirection = new Vector2Int(2, 2);
+        private Vector2 lastDirection = new Vector2Int(2, 2);
         private bool lastJump = false;
         private int count = 0;
 
-        public void RecordFixedUpdate(Vector2Int direction, bool jump)
+        public void RecordFixedUpdate(Vector2 direction, bool jump)
         {
             if (direction.x != lastDirection.x ||
                 direction.y != lastDirection.y ||

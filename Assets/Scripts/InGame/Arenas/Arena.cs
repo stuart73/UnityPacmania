@@ -25,7 +25,7 @@ namespace Pacmania.InGame.Arenas
         }
      
         public virtual RecordKeyboard.KeyboardSnapshot[] DemoSteps { get { return null; } }
-        public Vector2Int CenterTile { get; protected set; }
+        public Vector2Int PacmanStartTile { get; protected set; }
         public Vector2Int BonusTile { get; protected set; }
         public Vector2Int NestTile { get; protected set; }
         public Vector2Int NestEntranceTile { get; protected set; }
@@ -38,15 +38,16 @@ namespace Pacmania.InGame.Arenas
         public int TileHeightPixels { get; protected set; }
         public int TileHalfHeightPixels { get; protected set; }   
         public ArenaWrapper ArenaWrapper { get; private set; }
-        public int InitialNumberOfPellets { get; private set; } = 0;
-        public float PixelArtTileAspect { get; protected set; } = 0;
+        public int InitialNumberOfPellets { get; private set; }
+
+        public const float spritePixelPerUnit = 100.0f;
+
+        protected float PixelArtTileAspect;
 
         protected abstract int[,] TileMap { get; }
         protected abstract int[,] TileOrderMap { get; }
-
-        public const float spritePixelPerUnit = 100.0f;
+    
         private const float arenaScreenWidth = 5.12f;
-
         private Pickup[,] tilePickups = null;
 
         private void Awake()
@@ -240,8 +241,8 @@ namespace Pacmania.InGame.Arenas
                 // y scale is a ratio between the isometric pixel art tile's dimensions ratio against our actual tile dimensions ratio. 
                 float isometricYScale = PixelArtTileAspect / (((float)TileWidthPixels) / ((float)TileHeightPixels));
 
-                arenaPosition.x -= (CenterTile.x * TileWidthPixels + TileHalfWidthPixels);
-                arenaPosition.y -= (CenterTile.y * TileHeightPixels + TileHalfHeightPixels);
+                arenaPosition.x -= (PacmanStartTile.x * TileWidthPixels + TileHalfWidthPixels);
+                arenaPosition.y -= (PacmanStartTile.y * TileHeightPixels + TileHalfHeightPixels);
                 arenaPosition.y /= isometricYScale;
 
                 arenaPosition.x -= (arenaPosition.y / 2);  // All isometric pixel art angle is a 1:2 ratio. i.e. 1 pixel x for 2 y.

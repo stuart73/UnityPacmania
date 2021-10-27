@@ -61,7 +61,7 @@ namespace Pacmania.InGame.Arenas
 
         public JungleSteps()
         {
-            CenterTile = new Vector2Int(7, 16);
+            PacmanStartTile = new Vector2Int(7, 16);
             BonusTile = new Vector2Int(7, 12);
             NestTile = new Vector2Int(7, 9);
             NestEntranceTile = new Vector2Int(7, 7);

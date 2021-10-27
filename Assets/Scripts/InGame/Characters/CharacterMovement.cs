@@ -9,8 +9,8 @@ namespace Pacmania.InGame.Characters
         [SerializeField] private float defaultSpeed = 1.4f;
         public float DefaultSpeed
         {
-            get { return defaultSpeed; }
-            set { defaultSpeed = value; }
+            get => defaultSpeed;
+            set => defaultSpeed = value;
         }
 
         [SerializeField] private float speedIncreasePerLevel = 0.025f;
@@ -18,7 +18,7 @@ namespace Pacmania.InGame.Characters
         [SerializeField] private Vector3 currentDirection;
         public Vector3 CurrentDirection
         {
-            get { return currentDirection; }
+            get => currentDirection;
         }
 
         public float SpeedCoefficient { get; set; } = 1;
@@ -26,13 +26,13 @@ namespace Pacmania.InGame.Characters
         public Animator Animator { get; private set; }
         public bool Paused { get; set; } = true;
 
+        private Vector3 arenaPosition;
         public Vector3 ArenaPosition
         {
-            get { return arenaPosition; }
-            set { arenaPosition = value; }
-
+            get => arenaPosition;
+            set => arenaPosition = value;
         }
-        private Vector3 arenaPosition;
+        
         private Vector3 initialArenaPosition;
         private Vector2 initialDirection;
         private Jumping jumpingComponent;
@@ -108,7 +108,7 @@ namespace Pacmania.InGame.Characters
             return Arena.GetTileForArenaPosition(arenaPosition);
         }
 
-        public void Move(Vector2Int desiredDirection)
+        public void Move(Vector2 desiredDirection)
         {
             if (Paused == true || enabled == false)
             {
@@ -116,64 +116,21 @@ namespace Pacmania.InGame.Characters
             }
 
             Vector3 oldArenaPosition = arenaPosition; // needed for teleportation test later
-
-            // 180 change of direction.
-            if (currentDirection.x < 0 && desiredDirection.x > 0)
-            {
-                currentDirection.x = 1;
-            }
-            else if (currentDirection.x > 0 && desiredDirection.x < 0)
-            {
-                currentDirection.x = -1;
-            }
-            else if (currentDirection.y < 0 && desiredDirection.y > 0)
-            {
-                currentDirection.y = 1;
-            }
-            else if (currentDirection.y > 0 && desiredDirection.y < 0)
-            {
-                currentDirection.y = -1;
-            }
-
             Vector2Int currentTile = Arena.GetTileForArenaPosition(arenaPosition);
-            Vector3 arenaPositionForTileCenter = Arena.GetArenaPositionForTileCenter(currentTile);
 
-            // Change direction if in tile center?
+            // Change direction checs
             if (IsInTileCenter())
             {
-                if (desiredDirection.y > 0 && Arena.IsCharacterAllowedinTile(currentTile.x, currentTile.y + 1, allowedInGhostNest) == true)
-                {
-                    currentDirection = new Vector3(0, 1, 0);
-                    arenaPosition.x = arenaPositionForTileCenter.x;
-                }
-                else if (desiredDirection.y < 0 && Arena.IsCharacterAllowedinTile(currentTile.x, currentTile.y - 1, allowedInGhostNest) == true)
-                {
-                    currentDirection = new Vector3(0, -1, 0);
-                    arenaPosition.x = arenaPositionForTileCenter.x;
-                }
-                else if (desiredDirection.x < 0 && Arena.IsCharacterAllowedinTile(currentTile.x - 1, currentTile.y, allowedInGhostNest) == true)
-                {
-                    currentDirection = new Vector3(-1, 0, 0);
-                    arenaPosition.y = arenaPositionForTileCenter.y;
-                }
-                else if (desiredDirection.x > 0 && Arena.IsCharacterAllowedinTile(currentTile.x + 1, currentTile.y, allowedInGhostNest) == true)
-                {
-                    currentDirection = new Vector3(1, 0, 0);
-                    arenaPosition.y = arenaPositionForTileCenter.y;
-                }
+                CheckChangeDirection(desiredDirection, currentTile);
+            }
+            else
+            {
+                CheckFor180ChangeDirection(desiredDirection);
             }
 
             arenaPosition += currentDirection * CurrentSpeed();
 
-            // Collision test with walls.
-            if ((currentDirection.x < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x - Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
-                (currentDirection.x > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x + Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
-                (currentDirection.y > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y + Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false) ||
-                (currentDirection.y < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y - Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false))
-            {
-                // Partly inside a wall, so move us back to the center of the current tile.
-                arenaPosition = arenaPositionForTileCenter;
-            }
+            CheckCollisionWithWalls(currentTile);
 
             if (jumpingComponent != null)
             {
@@ -187,6 +144,66 @@ namespace Pacmania.InGame.Characters
             SetAnimationAndSpriteOrder();
 
         }
+
+        private void CheckCollisionWithWalls(Vector2Int currentTile)
+        {
+            // Collision test with walls.
+            if ((currentDirection.x < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x - Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
+                (currentDirection.x > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x + Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
+                (currentDirection.y > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y + Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false) ||
+                (currentDirection.y < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y - Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false))
+            {
+                // Partly inside a wall, so move us back to the center of the current tile.
+                arenaPosition = Arena.GetArenaPositionForTileCenter(currentTile);
+            }
+        }
+
+        private void CheckFor180ChangeDirection(Vector2 desiredDirection)
+        {
+            if (currentDirection.x < 0 && desiredDirection.x > 0)
+            {
+                currentDirection = Vector3.right;
+            }
+            else if (currentDirection.x > 0 && desiredDirection.x < 0)
+            {
+                currentDirection = Vector3.left;
+            }
+            else if (currentDirection.y < 0 && desiredDirection.y > 0)
+            {
+                currentDirection = Vector3.up;
+            }
+            else if (currentDirection.y > 0 && desiredDirection.y < 0)
+            {
+                currentDirection = Vector3.down;
+            }
+        }
+
+        private void CheckChangeDirection(Vector2 desiredDirection, Vector2Int currentTile)
+        {
+            Vector3 arenaPositionForTileCenter = Arena.GetArenaPositionForTileCenter(currentTile);
+
+            if (desiredDirection.y > 0 && currentDirection.y <=0 && Arena.IsCharacterAllowedinTile(currentTile.x, currentTile.y + 1, allowedInGhostNest) == true)
+            {
+                currentDirection = Vector3.up;
+                arenaPosition.x = arenaPositionForTileCenter.x;
+            }
+            else if (desiredDirection.y < 0 && currentDirection.y >= 0 && Arena.IsCharacterAllowedinTile(currentTile.x, currentTile.y - 1, allowedInGhostNest) == true)
+            {
+                currentDirection = Vector3.down;
+                arenaPosition.x = arenaPositionForTileCenter.x;
+            }
+            else if (desiredDirection.x < 0 && currentDirection.x >=0 && Arena.IsCharacterAllowedinTile(currentTile.x - 1, currentTile.y, allowedInGhostNest) == true)
+            {
+                currentDirection = Vector3.left;
+                arenaPosition.y = arenaPositionForTileCenter.y;
+            }
+            else if (desiredDirection.x > 0 && currentDirection.x <= 0 && Arena.IsCharacterAllowedinTile(currentTile.x + 1, currentTile.y, allowedInGhostNest) == true)
+            {
+                currentDirection = Vector3.right;
+                arenaPosition.y = arenaPositionForTileCenter.y;
+            }
+        }
+
         private void TestForTeleportation(Vector3 oldPosition, ref Vector3 newPosition)
         {
             foreach (Teleporter teleporer in Arena.Teleporters)

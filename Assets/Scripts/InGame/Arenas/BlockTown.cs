@@ -79,7 +79,7 @@ new RecordKeyboard.KeyboardSnapshot(1128, 0, 0, false),
 
         public BlockTown()
         {
-            CenterTile = new Vector2Int(6, 12);
+            PacmanStartTile = new Vector2Int(6, 12);
             BonusTile = new Vector2Int(6, 8);
             NestTile = new Vector2Int(6, 6);
             NestEntranceTile = new Vector2Int(6, 4);

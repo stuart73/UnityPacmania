@@ -13,7 +13,7 @@ namespace Pacmania.InGame.Characters.Pacman
         private Animator animator;
 
         private PacmanCollision pacmanCollision;
-        private Vector2Int desiredDirection;
+        private Vector2 desiredDirection;
         private bool selectedJump = false;
 
         private void Awake()
@@ -55,7 +55,7 @@ namespace Pacmania.InGame.Characters.Pacman
 
             if (arena != null)
             {
-                startPosition = characterMovement.Arena.GetArenaPositionForTileCenter(characterMovement.Arena.CenterTile);
+                startPosition = characterMovement.Arena.GetArenaPositionForTileCenter(characterMovement.Arena.PacmanStartTile);
             }
 
             characterMovement.SetInitialPosition(startPosition);
@@ -63,32 +63,19 @@ namespace Pacmania.InGame.Characters.Pacman
 
         void Update()
         {
-            if (Game.Instance.CurrentSession is DemoGameSession)
-            {
-                if (Input.GetKeyDown("space"))
-                {
-                    (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
-                }
-
-                return;
-            }
-
             float inputHorizontal = Input.GetAxis("Horizontal");
             float inputVertical = Input.GetAxis("Vertical");
 
-            desiredDirection = new Vector2Int(0, 0);
-
-            Vector3 currentMovement = characterMovement.CurrentDirection;
-
-            if (inputHorizontal > 0 && currentMovement.x <= 0) desiredDirection.x = 1;
-            else if (inputHorizontal < 0 && currentMovement.x >= 0) desiredDirection.x = -1;
-
-            // Note y axis is reverse to direction in our game. i.e. up button is +y but in game this means head -y direction. 
-            if (inputVertical > 0 && currentMovement.y >= 0) desiredDirection.y = -1;
-            else if (inputVertical < 0 && currentMovement.y <= 0) desiredDirection.y = 1;
+            desiredDirection = new Vector2(inputHorizontal, -inputVertical);  // y axis is reversed
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                GameSession currentSession = Game.Instance.CurrentSession;
+                if (currentSession is DemoGameSession demoGameSession)
+                {
+                    demoGameSession.StartPlayerGame();
+                    return;
+                }
                 selectedJump = true;
             }
         }

@@ -81,7 +81,7 @@ namespace Pacmania.InGame.Arenas
 
         public PacmanPark()
         {
-            CenterTile = new Vector2Int(13, 15);
+            PacmanStartTile = new Vector2Int(13, 15);
             BonusTile = new Vector2Int(13, 11);
             NestTile = new Vector2Int(13, 9);
             NestEntranceTile = new Vector2Int(13, 8);

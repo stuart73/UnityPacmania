@@ -53,7 +53,7 @@ namespace Pacmania.InGame.Arenas
 
         public SandboxLand()
         {
-            CenterTile = new Vector2Int(12, 13);
+            PacmanStartTile = new Vector2Int(12, 13);
             BonusTile = new Vector2Int(12, 11);
             NestTile = new Vector2Int(12, 6);
             NestEntranceTile = new Vector2Int(12, 4);
