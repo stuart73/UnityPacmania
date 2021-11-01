@@ -34,15 +34,15 @@ namespace Pacmania.InGame.Arenas
         public Vector2Int BottomLeftTile { get { return new Vector2Int(0, TileMap.GetLength(0) - 1); } }
         public Vector2Int BottomRightTile { get { return new Vector2Int(TileMap.GetLength(1) - 1, TileMap.GetLength(0) - 1); } }
         public int TileWidthPixels { get; protected set; }
-        public int TileHalfWidthPixels { get; protected set; }
+        public int TileHalfWidthPixels { get; private set; }
         public int TileHeightPixels { get; protected set; }
-        public int TileHalfHeightPixels { get; protected set; }   
+        public int TileHalfHeightPixels { get; private set; }   
         public ArenaWrapper ArenaWrapper { get; private set; }
         public int InitialNumberOfPellets { get; private set; }
 
         public const float spritePixelPerUnit = 100.0f;
-
-        protected float PixelArtTileAspect;
+        protected float pixelArtTileAspect;
+        private float isometricYScale = 0;
 
         protected abstract int[,] TileMap { get; }
         protected abstract int[,] TileOrderMap { get; }
@@ -50,8 +50,15 @@ namespace Pacmania.InGame.Arenas
         private const float arenaScreenWidth = 5.12f;
         private Pickup[,] tilePickups = null;
 
-        private void Awake()
+        protected virtual void Awake()
         {
+            TileHalfWidthPixels = TileWidthPixels / 2;
+            TileHalfHeightPixels = TileHeightPixels / 2;
+
+            // Calculate the ratio between the isometric pixel art tile's dimensions ratio against our actual tile dimensions ratio. 
+            float tileAspect = TileWidthPixels / (float)TileHeightPixels;
+            isometricYScale = pixelArtTileAspect / tileAspect;
+
             tilePickups = new Pickup[TileMap.GetLength(0), TileMap.GetLength(1)];
             ArenaWrapper = GetComponent<ArenaWrapper>();
         }
@@ -237,9 +244,6 @@ namespace Pacmania.InGame.Arenas
             if (isometric == true)
             {
                 float z = CalculateZOrder(arenaPosition.x, arenaPosition.y);
-
-                // y scale is a ratio between the isometric pixel art tile's dimensions ratio against our actual tile dimensions ratio. 
-                float isometricYScale = PixelArtTileAspect / (((float)TileWidthPixels) / ((float)TileHeightPixels));
 
                 arenaPosition.x -= (PacmanStartTile.x * TileWidthPixels + TileHalfWidthPixels);
                 arenaPosition.y -= (PacmanStartTile.y * TileHeightPixels + TileHalfHeightPixels);

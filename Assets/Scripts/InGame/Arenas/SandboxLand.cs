@@ -51,7 +51,7 @@ namespace Pacmania.InGame.Arenas
                      { 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20 } };
 
 
-        public SandboxLand()
+        protected override void Awake()
         {
             PacmanStartTile = new Vector2Int(12, 13);
             BonusTile = new Vector2Int(12, 11);
@@ -59,12 +59,9 @@ namespace Pacmania.InGame.Arenas
             NestEntranceTile = new Vector2Int(12, 4);
 
             TileWidthPixels = 32;
-            TileHalfWidthPixels = TileWidthPixels / 2;
-
             TileHeightPixels = 28;
-            TileHalfHeightPixels = TileHeightPixels / 2;
-
-            PixelArtTileAspect = 32.0f / 24.0f;
+            pixelArtTileAspect = 32.0f / 24.0f;
+            base.Awake();
 
         }
 

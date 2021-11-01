@@ -52,7 +52,7 @@ namespace Pacmania.InGame.Arenas
                      { 800, 800, 800, 800, 800, 800, 905, 975, 975, 975, 975, 975, 975, 975, 975, 975, 975, 975, 975, 975, 975, 980, 990, 990, 990, 990 },
                      { 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990, 990 } };
 
-  
+
         /*
         int[,] order3 = {
                      { ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ###, ### },
@@ -79,7 +79,7 @@ namespace Pacmania.InGame.Arenas
 
         */
 
-        public PacmanPark()
+        protected override void Awake()
         {
             PacmanStartTile = new Vector2Int(13, 15);
             BonusTile = new Vector2Int(13, 11);
@@ -87,12 +87,9 @@ namespace Pacmania.InGame.Arenas
             NestEntranceTile = new Vector2Int(13, 8);
 
             TileWidthPixels = 24;
-            TileHalfWidthPixels = TileWidthPixels / 2;
-
             TileHeightPixels = 28;
-            TileHalfHeightPixels = TileHeightPixels / 2;
-
-            PixelArtTileAspect = 1.0f;
+            pixelArtTileAspect = 1.0f;
+            base.Awake();
 
         }
 

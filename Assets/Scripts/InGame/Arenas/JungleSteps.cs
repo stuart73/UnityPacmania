@@ -59,7 +59,7 @@ namespace Pacmania.InGame.Arenas
                         { 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24 },
                         { 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25 } };
 
-        public JungleSteps()
+        protected override void Awake()
         {
             PacmanStartTile = new Vector2Int(7, 16);
             BonusTile = new Vector2Int(7, 12);
@@ -67,12 +67,10 @@ namespace Pacmania.InGame.Arenas
             NestEntranceTile = new Vector2Int(7, 7);
 
             TileWidthPixels = 32;
-            TileHalfWidthPixels = TileWidthPixels / 2;
-
             TileHeightPixels = 28;
-            TileHalfHeightPixels = TileHeightPixels / 2;
 
-            PixelArtTileAspect = 32.0f / 24.0f;
+            pixelArtTileAspect = 32.0f / 24.0f;
+            base.Awake();
         }
 
         protected override int[,] TileMap

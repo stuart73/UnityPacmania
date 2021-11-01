@@ -77,7 +77,7 @@ new RecordKeyboard.KeyboardSnapshot(1128, 0, 0, false),
 
                                                             new RecordKeyboard.KeyboardSnapshot(10000000, 0, 0, false)};*/
 
-        public BlockTown()
+        protected override void Awake() 
         {
             PacmanStartTile = new Vector2Int(6, 12);
             BonusTile = new Vector2Int(6, 8);
@@ -85,12 +85,9 @@ new RecordKeyboard.KeyboardSnapshot(1128, 0, 0, false),
             NestEntranceTile = new Vector2Int(6, 4);
 
             TileWidthPixels = 32;
-            TileHalfWidthPixels = TileWidthPixels / 2;
-
             TileHeightPixels = 28;
-            TileHalfHeightPixels = TileHeightPixels / 2;
-
-            PixelArtTileAspect = 32.0f / 24.0f;
+            pixelArtTileAspect = 32.0f / 24.0f;
+            base.Awake();
 
          }
 
