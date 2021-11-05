@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Pacmania.Audio;
-using Pacmania.InGame.ScoreSprites;
+using Pacmania.InGame.Arenas;
 using Pacmania.InGame.Characters.Ghost;
 using Pacmania.InGame.Characters.Ghost.GhostStates;
 using Pacmania.InGame.Pickups;
@@ -47,15 +46,16 @@ namespace Pacmania.InGame.Characters.Pacman
 
         private void CheckIfTouchedPickup()
         {
+            Arena arena = level.Arena;
             Vector2Int pacmanTile = characterMovement.GetTileIn();
-            Pickup pickup = level.Arena.GetTilePickUp(pacmanTile);
+            Pickup pickup = arena.GetTilePickUp(pacmanTile);
 
             if (pickup == null)  return;
 
-            if (IsTouchingPacman(level.Arena.GetArenaPositionForTileCenter(pacmanTile)) == true)
+            if (IsTouchingPacman(arena.GetArenaPositionForTileCenter(pacmanTile)) == true)
             {
                 Destroy(pickup.gameObject);
-                level.Arena.SetTilePickUp(pacmanTile, null);
+                arena.SetTilePickUp(pacmanTile, null);
                 pickup.OnPickedUp();
 
                 if (pickup is Pellet || pickup is PowerPellet)

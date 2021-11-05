@@ -91,7 +91,7 @@ new RecordKeyboard.KeyboardSnapshot(1128, 0, 0, false),
 
          }
 
-        protected override int[,] TileMap
+        protected override int[,] TileTypeMap
         {
             get { return tiles; }
         }

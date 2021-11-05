@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Pacmania.InGame.Arenas;
 
 namespace Pacmania.InGame.Characters
@@ -121,11 +122,11 @@ namespace Pacmania.InGame.Characters
             // Change direction checs
             if (IsInTileCenter())
             {
-                CheckChangeDirection(desiredDirection, currentTile);
+                CheckDirectionChange(desiredDirection, currentTile);
             }
             else
             {
-                CheckFor180ChangeDirection(desiredDirection);
+                CheckOppositeDirectionChange(desiredDirection);
             }
 
             arenaPosition += currentDirection * CurrentSpeed();
@@ -147,18 +148,15 @@ namespace Pacmania.InGame.Characters
 
         private void CheckCollisionWithWalls(Vector2Int currentTile)
         {
-            // Collision test with walls.
-            if ((currentDirection.x < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x - Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
-                (currentDirection.x > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x + Arena.TileHalfWidthPixels, arenaPosition.y, 0), allowedInGhostNest) == false) ||
-                (currentDirection.y > 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y + Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false) ||
-                (currentDirection.y < 0 && Arena.IsCharacterAllowedInTile(new Vector3(arenaPosition.x, arenaPosition.y - Arena.TileHalfHeightPixels, 0), allowedInGhostNest) == false))
+            Vector3 testPoint = arenaPosition + currentDirection * (Math.Abs(currentDirection.y) > 0 ? Arena.TileHalfHeightPixels : Arena.TileHalfWidthPixels);
+
+            if (Arena.IsCharacterAllowedInTile(testPoint, allowedInGhostNest) == false)
             {
-                // Partly inside a wall, so move us back to the center of the current tile.
                 arenaPosition = Arena.GetArenaPositionForTileCenter(currentTile);
             }
         }
 
-        private void CheckFor180ChangeDirection(Vector2 desiredDirection)
+        private void CheckOppositeDirectionChange(Vector2 desiredDirection)
         {
             if (currentDirection.x < 0 && desiredDirection.x > 0)
             {
@@ -178,7 +176,7 @@ namespace Pacmania.InGame.Characters
             }
         }
 
-        private void CheckChangeDirection(Vector2 desiredDirection, Vector2Int currentTile)
+        private void CheckDirectionChange(Vector2 desiredDirection, Vector2Int currentTile)
         {
             Vector3 arenaPositionForTileCenter = Arena.GetArenaPositionForTileCenter(currentTile);
 

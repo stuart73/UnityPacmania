@@ -73,7 +73,7 @@ namespace Pacmania.InGame.Arenas
             base.Awake();
         }
 
-        protected override int[,] TileMap
+        protected override int[,] TileTypeMap
         {
             get { return tiles; }
         }

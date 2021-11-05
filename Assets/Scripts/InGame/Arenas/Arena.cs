@@ -30,9 +30,9 @@ namespace Pacmania.InGame.Arenas
         public Vector2Int NestTile { get; protected set; }
         public Vector2Int NestEntranceTile { get; protected set; }
         public Vector2Int TopleftTile { get { return new Vector2Int(0, 0); } }
-        public Vector2Int TopRightTile { get { return new Vector2Int(TileMap.GetLength(1) - 1, 0); } }
-        public Vector2Int BottomLeftTile { get { return new Vector2Int(0, TileMap.GetLength(0) - 1); } }
-        public Vector2Int BottomRightTile { get { return new Vector2Int(TileMap.GetLength(1) - 1, TileMap.GetLength(0) - 1); } }
+        public Vector2Int TopRightTile { get { return new Vector2Int(Width() - 1, 0); } }
+        public Vector2Int BottomLeftTile { get { return new Vector2Int(0, Height() - 1); } }
+        public Vector2Int BottomRightTile { get { return new Vector2Int(Width() - 1, Height() - 1); } }
         public int TileWidthPixels { get; protected set; }
         public int TileHalfWidthPixels { get; private set; }
         public int TileHeightPixels { get; protected set; }
@@ -44,12 +44,21 @@ namespace Pacmania.InGame.Arenas
         protected float pixelArtTileAspect;
         private float isometricYScale = 0;
 
-        protected abstract int[,] TileMap { get; }
+        protected abstract int[,] TileTypeMap { get; }
         protected abstract int[,] TileOrderMap { get; }
-    
-        private const float arenaScreenWidth = 5.12f;
-        private Pickup[,] tilePickups = null;
+        private Pickup[,] tilePickupsMap = null;
 
+        private const float arenaScreenWidth = 5.12f;
+
+        public int Width() => TileTypeMap.GetLength(1);
+        public int Height() => TileTypeMap.GetLength(0);
+        private enum TileType
+        {
+            empty = 0,
+            pellet = 1,
+            powerPellet = 2,
+            wall = 4
+        }
         protected virtual void Awake()
         {
             TileHalfWidthPixels = TileWidthPixels / 2;
@@ -59,7 +68,7 @@ namespace Pacmania.InGame.Arenas
             float tileAspect = TileWidthPixels / (float)TileHeightPixels;
             isometricYScale = pixelArtTileAspect / tileAspect;
 
-            tilePickups = new Pickup[TileMap.GetLength(0), TileMap.GetLength(1)];
+            tilePickupsMap = new Pickup[Height(), Width()];
             ArenaWrapper = GetComponent<ArenaWrapper>();
         }
 
@@ -74,14 +83,14 @@ namespace Pacmania.InGame.Arenas
             {
                 for (int x = 0; x < Width(); x++)
                 {
-                    int tileContent = GetTileType(x, y);
+                    TileType tileContent = GetTileType(x, y);
                     GameObject localPellet = null;
 
-                    if (tileContent == 1)
+                    if (tileContent == TileType.pellet)
                     {
                         localPellet = InstantiatePellet(pellet.gameObject, x, y, gameObject.transform);
                     }
-                    else if (tileContent == 2)
+                    else if (tileContent == TileType.powerPellet)
                     {
                         localPellet = InstantiatePellet(powerPellet.gameObject, x, y, null);
                         Renderer renderer = localPellet.GetComponent<Renderer>();
@@ -111,7 +120,7 @@ namespace Pacmania.InGame.Arenas
             arenaPosition.y += 1;
             Vector3 screenPosition = GetTransformPositionFromArenaPosition(arenaPosition);
             GameObject pellet = Instantiate(prefab, screenPosition, Quaternion.identity, parent);
-            tilePickups[y, x] = pellet.GetComponent<Pickup>();
+            tilePickupsMap[y, x] = pellet.GetComponent<Pickup>();
             InitialNumberOfPellets++; 
             return pellet;
         }
@@ -124,9 +133,9 @@ namespace Pacmania.InGame.Arenas
             {
                 for (int x = 0; x < Width(); x++)
                 {
-                    if (tilePickups[y, x] != null)
+                    if (tilePickupsMap[y, x] != null)
                     {
-                        SpriteRenderer[] children = tilePickups[y, x].GetComponentsInChildren<SpriteRenderer>();
+                        SpriteRenderer[] children = tilePickupsMap[y, x].GetComponentsInChildren<SpriteRenderer>();
                         foreach (var spriteRenderer in children)
                         {
                             spriteRenderer.enabled = false;
@@ -136,13 +145,13 @@ namespace Pacmania.InGame.Arenas
             }
         }
 
-        public int GetTileType(int x, int y)
+        private TileType GetTileType(int x, int y)
         {
-            if (TileMap.GetLength(1) < x || x < 0 || TileMap.GetLength(0) < y || y < 0)
+            if (Width() < x || x < 0 || Height() < y || y < 0)
             {
-                return -1;
+                return TileType.empty;
             }
-            return TileMap[y, x];
+            return (TileType)TileTypeMap[y, x];
         }
 
         public bool ContainsPickup<T>() where T : Pickup
@@ -151,7 +160,7 @@ namespace Pacmania.InGame.Arenas
             {
                 for (int x = 0; x < Width(); x++)
                 {
-                    if (tilePickups[y, x] != null && tilePickups[y, x].GetType() == typeof(T))
+                    if (tilePickupsMap[y, x] != null && tilePickupsMap[y, x].GetType() == typeof(T))
                     {
                         return true;
                     }
@@ -169,26 +178,15 @@ namespace Pacmania.InGame.Arenas
             return TileOrderMap[tile.y, tile.x];
         }
 
-        private bool IsTileValid(Vector2Int tile) => tile.x < tilePickups.GetLength(1) && tile.x >= 0 && tile.y < tilePickups.GetLength(0) && tile.y >= 0;
+        private bool IsTileValid(Vector2Int tile) => tile.x < Width() && tile.x >= 0 && tile.y < Height() && tile.y >= 0;
 
         public Pickup GetTilePickUp(Vector2Int tile)
         {
             if (IsTileValid(tile) == false)
             {
-                return null; ;
+                return null;
             }
-
-            Pickup result;
-            try
-            {
-                result = tilePickups[tile.y, tile.x];
-            }
-            catch
-            {
-                result = null;
-            }
-
-            return result;
+            return tilePickupsMap[tile.y, tile.x];
         }
 
         public void SetTilePickUp(Vector2Int tile, Pickup pickup)
@@ -199,17 +197,14 @@ namespace Pacmania.InGame.Arenas
             }
 
             // This there is a pickup already there, then destory it.
-            if (tilePickups[tile.y, tile.x] != null && pickup != null)
+            if (tilePickupsMap[tile.y, tile.x] != null && pickup != null)
             {
-                Destroy(tilePickups[tile.y, tile.x].gameObject);
+                Destroy(tilePickupsMap[tile.y, tile.x].gameObject);
             }
-            tilePickups[tile.y, tile.x] = pickup;
+            tilePickupsMap[tile.y, tile.x] = pickup;
         }
 
-        public int Width() => TileMap.GetLength(1);
-
-        public int Height() => TileMap.GetLength(0);
-
+   
         public bool IsCharacterAllowedInTile(Vector3 position, bool allowedInNestTile)
         {
             Vector2Int tile = GetTileForArenaPosition(position);
@@ -229,12 +224,12 @@ namespace Pacmania.InGame.Arenas
                 return false;
             }
 
-            return TileMap[tile.y, tile.x] <= 3;
+            return TileTypeMap[tile.y, tile.x] != (int)TileType.wall;
         }
 
         float CalculateZOrder(float x, float y)
         {
-            float w = TileMap.GetLength(1) * TileWidthPixels;  // w = total number of pixels horizontally.
+            float w = Width() * TileWidthPixels;  // w = total number of pixels horizontally.
             float z = -0.00001f * ((y * w) + x);
             return z;
         }
@@ -270,7 +265,6 @@ namespace Pacmania.InGame.Arenas
         }
 
         public Vector3 GetArenaPositionForTileCenter(Vector2Int tile) => new Vector3((tile.x * TileWidthPixels) + TileHalfWidthPixels, (tile.y * TileHeightPixels) + TileHalfHeightPixels, 0);
-
         public Vector3 GetArenaPositionForTileCenter(Vector3 arenaPostion) => GetArenaPositionForTileCenter(GetTileForArenaPosition(arenaPostion));
     }
 }

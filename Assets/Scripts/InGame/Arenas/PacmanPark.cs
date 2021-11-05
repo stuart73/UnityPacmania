@@ -93,7 +93,7 @@ namespace Pacmania.InGame.Arenas
 
         }
 
-        protected override int[,] TileMap
+        protected override int[,] TileTypeMap
         {
             get { return tiles; }
         }
