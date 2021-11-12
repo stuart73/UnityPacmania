@@ -16,7 +16,7 @@ namespace Pacmania.InGame
 {
     public class Level : MonoBehaviour
     {
-        [SerializeField] private int levelNumber = default;
+        [SerializeField] [Range(0, 50)] private int levelNumber = default;
         public int LevelNumber
         {
             get { return levelNumber; }
@@ -28,6 +28,7 @@ namespace Pacmania.InGame
         public ScatterChaseTimer ScatterChaseTimer { get; private set; }
         public CharacterManager CharacterManager { get; private set; }
         public GhostManager GhostManager { get; private set; }
+        public ScoreSpawner ScoreSpawner { get; private set; }
 
         public Audio.AudioManager AudioManager { get; private set; }
         public SeedUniformRandomNumberStream RandomStream { get; private set; } = new SeedUniformRandomNumberStream(1);
@@ -42,8 +43,9 @@ namespace Pacmania.InGame
             ScatterChaseTimer = FindObjectOfType<ScatterChaseTimer>();
             AudioManager = FindObjectOfType<Audio.AudioManager>();
             GhostManager = FindObjectOfType<GhostManager>();
+            ScoreSpawner = FindObjectOfType<ScoreSpawner>();
             CharacterManager = new CharacterManager();
-
+         
             if (Arena == null)
             {
                 Debug.LogError("No arena found when starting level", this);
@@ -67,6 +69,10 @@ namespace Pacmania.InGame
             if (GhostManager == null)
             {
                 Debug.LogError("No GhostManager found when starting level", this);
+            }
+            if (GhostManager == null)
+            {
+                Debug.LogError("No ScoreSpawner found when starting level", this);
             }
 
             // CurrentLevel should already be set. But just in case we jumped straight into

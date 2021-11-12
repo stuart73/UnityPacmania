@@ -6,7 +6,7 @@ namespace Pacmania.InGame.Characters
 {
     public class Jumping : MonoBehaviour
     {
-        [SerializeField] private float jumpPower = 1;
+        [SerializeField] [Range(0.1f, 1.0f)] private float jumpPower = 1;
         public float JumpPower
         {
             get { return jumpPower; }

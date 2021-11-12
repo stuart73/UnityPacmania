@@ -13,7 +13,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             GhostAI ghostAI = forGameObject.GetComponent<GhostAI>();
             GhostController ghostController = forGameObject.GetComponent<GhostController>();
 
-            ghostController.TargetPosition = ghostAI.ScatterPosition();
+            ghostController.TargetTile = ghostAI.GetScatterTile();
 
             Level level = forGameObject.GetComponent<GhostController>().Level;
            

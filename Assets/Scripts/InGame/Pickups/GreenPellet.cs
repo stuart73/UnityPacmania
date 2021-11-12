@@ -9,8 +9,8 @@ namespace Pacmania.InGame.Pickups
         public override void OnPickedUp()
         {
             base.OnPickedUp();
-            FindObjectOfType<AudioManager>().Play(SoundType.EatPowerPellet);
-            FindObjectOfType<PacmanController>().GetComponent<CharacterMovement>().SpeedCoefficient = 1.25f;
+            level.AudioManager.Play(SoundType.EatPowerPellet);
+            level.Pacman.GetComponent<CharacterMovement>().SpeedCoefficient = 1.25f;
         }
     }
 }

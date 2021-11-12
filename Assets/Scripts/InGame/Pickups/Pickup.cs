@@ -8,6 +8,12 @@ namespace Pacmania.InGame.Pickups
     {
         [SerializeField] protected int score;
 
+        protected Level level;
+        private void Awake()
+        {
+            level = FindObjectOfType<Level>();
+        }
+
         public int Score
         {
             get { return score; }
@@ -15,7 +21,7 @@ namespace Pacmania.InGame.Pickups
 
         public virtual void OnPickedUp()
         {
-            Game.Instance.CurrentSession.AddScore(score);
+            Game.Instance.CurrentSession.AddScore(level, score);
         }
 
     }

@@ -7,7 +7,7 @@ namespace Pacmania.InGame.Characters
     [RequireComponent(typeof(Animator))]
     public class Shadow : MonoBehaviour
     {
-        [SerializeField] private float yOffSetPixels = 1;
+        [SerializeField] [Range(0.0f, 5.0f)] private float yOffSetPixels = 1;
 
         // Used in cut scenes
         [SerializeField] private bool arenaZPositionUsesAnimationY = false;

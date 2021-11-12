@@ -11,7 +11,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             Type nextState = GetType();
 
             GhostAI ghostAI = forGameObject.GetComponent<GhostAI>();
-            forGameObject.GetComponent<GhostController>().TargetPosition = ghostAI.ChasePosition();
+            forGameObject.GetComponent<GhostController>().TargetTile = ghostAI.GetChaseTile();
 
             Level level = forGameObject.GetComponent<GhostController>().Level;
 

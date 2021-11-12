@@ -22,12 +22,12 @@ namespace Pacmania.InGame.Characters.Ghost.AI
             }
         }
 
-        public override Vector2Int ScatterPosition() 
+        public override Vector2Int GetScatterTile() 
         {
             return characterMovement.Arena.BottomLeftTile;    
         }
 
-        public override Vector2Int ChasePosition()
+        public override Vector2Int GetChaseTile()
         {
             Vector2Int pacmanTile = pacmanCharacterMovement.GetTileIn();
 

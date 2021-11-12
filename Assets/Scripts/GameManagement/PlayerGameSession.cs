@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using Pacmania.Audio;
 using Pacmania.InGame.UI;
+using Pacmania.InGame;
 
 namespace Pacmania.GameManagement
 {
@@ -68,7 +69,7 @@ namespace Pacmania.GameManagement
             StartNextScene();
         }
 
-        public override void AddScore(int amount)
+        public override void AddScore(Level level, int amount)
         {
             int oldScore = Score;
             Score += amount;
@@ -77,14 +78,14 @@ namespace Pacmania.GameManagement
             {
                 Lives += 1;
 
-                Hud hud = UnityEngine.Object.FindObjectOfType<Hud>();
+                Hud hud = level.Hud;
                 if (hud != null)
                 {
                     hud.ShowExtendedForPeriod();
                     hud.RedrawLivesLeft();
                 }
 
-                GameObject.FindObjectOfType<AudioManager>().Play(SoundType.ExtendedJingle);
+                level.AudioManager.Play(SoundType.ExtendedJingle);
             }
         } 
 

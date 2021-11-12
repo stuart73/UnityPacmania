@@ -9,7 +9,7 @@ namespace Pacmania.InGame.Characters.Ghost
     [RequireComponent(typeof(GhostManager))]
     public class GhostFastModeTimer : MonoBehaviour
     {
-        [SerializeField] private float fastModeStartTime = 60;
+        [SerializeField] [Range(0.0f, 100.0f)] private float fastModeStartTime = 60;
         private int frameCount = 0;
         private const float fastModeSpeedMultiplier = 1.07f;
 

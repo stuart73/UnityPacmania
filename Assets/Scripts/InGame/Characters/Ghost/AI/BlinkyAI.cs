@@ -14,6 +14,8 @@ namespace Pacmania.InGame.Characters.Ghost.AI
             base.Start();
 
             Level level = FindObjectOfType<Level>();
+
+            // Maybe null when this script is used in cutscenes
             if (level != null)
             {
                 level.Pacman.GetComponent<PacmanCollision>().EatenPellete += PacManCollision_EatenPellete;
@@ -25,13 +27,13 @@ namespace Pacmania.InGame.Characters.Ghost.AI
             pelletsEaten++;
         }
 
-        public override Vector2Int ScatterPosition()
+        public override Vector2Int GetScatterTile()
         {
             initialPellets = characterMovement.Arena.InitialNumberOfPellets;
 
             if (initialPellets > 0 && (initialPellets - pelletsEaten) <= pelletsRemainingToStayInChase)
             {
-                return ChasePosition();
+                return GetChaseTile();
             }
 
             return characterMovement.Arena.TopRightTile;
@@ -39,10 +41,10 @@ namespace Pacmania.InGame.Characters.Ghost.AI
 
         public override void EnableFastAngryMode()
         {
-            GetComponent<CharacterMovement>().Animator.SetBool("Cruise Elroy", true);
+            GetComponent<CharacterMovement>().CharacterAnimator.SetBool("Cruise Elroy", true);
         }
 
-        public override Vector2Int ChasePosition()
+        public override Vector2Int GetChaseTile()
         {          
             return pacmanCharacterMovement.GetTileIn(); 
         }

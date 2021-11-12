@@ -7,7 +7,7 @@ namespace Pacmania.Utilities.UI
 
     public class FaderImageIn : MonoBehaviour
     {
-        [SerializeField] private float step = 0.002f;
+        [SerializeField] [Range(0.0001f, 0.01f)] private float step = 0.002f;
         private float current = 0;
         private bool fading = false;
         private Image image;

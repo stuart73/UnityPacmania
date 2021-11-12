@@ -9,8 +9,8 @@ namespace Pacmania.InGame.Arenas
 {
     public class Teleporter : MonoBehaviour
     {
-        [SerializeField] private int xVetical = default;
-        [SerializeField] private int arenaWidth = default;
+        [SerializeField] [Range(0, 1024)] private int xVetical = default;
+        [SerializeField] [Range(0, 1024)] private int arenaWidth = default;
 
         private int arenaHalfWidth;
         void Awake()

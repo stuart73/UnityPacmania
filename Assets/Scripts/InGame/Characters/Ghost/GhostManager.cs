@@ -11,7 +11,7 @@ namespace Pacmania.InGame.Characters.Ghost
             get { return ghostsChangeDirectionOnChase; }
         }
 
-        [SerializeField] private float timeInFrightenState = 10;
+        [SerializeField] [Range(0.0f, 20.0f)] private float timeInFrightenState = 10;
         public float TimeInFrightenState
         {
             get { return timeInFrightenState; }
@@ -20,7 +20,7 @@ namespace Pacmania.InGame.Characters.Ghost
         // Holds a reference to all the ghost controlles on the level
         public GhostController[] Ghosts { get; private set; }
 
-        private FrightenSiren FrightenSiren;
+        public FrightenSiren FrightenSiren { get; private set; }
 
         private void Awake()
         {

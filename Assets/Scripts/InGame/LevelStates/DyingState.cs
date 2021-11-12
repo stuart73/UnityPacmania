@@ -20,7 +20,7 @@ namespace Pacmania.InGame.LevelStates
 
             Level level = forGameObject.GetComponent<Level>();
             level.CharacterManager.PauseCharacters();
-            level.Arena.GetComponent<GreyoutSprite>().GreyEnabled(true);
+            level.Arena.GetComponent<GreyoutSprite>().EnableGrey();
             level.AudioManager.FadeOut(level.Arena.Music);
         }
 
@@ -92,10 +92,10 @@ namespace Pacmania.InGame.LevelStates
         private void StartPacmanSpin(GameObject forGameObject)
         {
             Level level = forGameObject.GetComponent<Level>();
-            level.Arena.GetComponent<GreyoutSprite>().GreyEnabled(false);
+            level.Arena.GetComponent<GreyoutSprite>().DisableGrey();
             level.GhostManager.SetGhostsVisibility(false);
             level.Pacman.StartSpinAnimation();
-            UnityEngine.Object.FindObjectOfType<FrightenSiren>().Stop();
+            level.GhostManager.FrightenSiren.Stop();
         }
     }
 }

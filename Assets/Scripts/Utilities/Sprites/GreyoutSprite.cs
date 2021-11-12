@@ -16,23 +16,24 @@ namespace Pacmania.Utilities.Sprites
         {
         }
 
-        public void GreyEnabled(bool value)
+        public void EnableGrey()
         {
-            if (enabled == false)
-            {
-                return;
-            }
+            if (enabled == false) return;
+            ApplyMeterial(greyMaterial);
+        }
 
-            Material material = defaultMaterial;
-            if (value == true)
+        public void DisableGrey()
+        {
+            if (enabled == false) return;
+            ApplyMeterial(defaultMaterial);
+        }
+
+        private void ApplyMeterial(Material material)
+        {
+            SpriteRenderer[] allChildren = GetComponentsInChildren<SpriteRenderer>();
+            foreach (SpriteRenderer child in allChildren)
             {
-                material = greyMaterial;
-            }
-            GetComponent<SpriteRenderer>().material = defaultMaterial;
-            Transform[] allChildren = GetComponentsInChildren<Transform>();
-            foreach (Transform child in allChildren)
-            {
-                child.GetComponent<SpriteRenderer>().material = material;
+                child.material = material;
             }
         }
     }

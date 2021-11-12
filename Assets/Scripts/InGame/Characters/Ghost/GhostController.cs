@@ -12,7 +12,7 @@ namespace Pacmania.InGame.Characters.Ghost
 {
     public class GhostController : MonoBehaviour
     {
-        [SerializeField] private float frightenCoEfficient = 0.6f;
+        [SerializeField] [Range(0.1f, 1.0f)] private float frightenCoEfficient = 0.6f;
         public float FrightenCoEfficient
         {
             get { return frightenCoEfficient; }
@@ -20,11 +20,11 @@ namespace Pacmania.InGame.Characters.Ghost
 
         [SerializeField] private bool drawTarget = true;
 
-        public Vector2Int DesiredDirection { get; set; } = new Vector2Int(0, -1);
+        public Vector2Int DesiredDirection { get; set; } = Vector2Int.down;
         public Level Level { get; private set; }
 
         public StateMachine FSM { get; private set; }
-        public Vector2Int TargetPosition { get; set; }
+        public Vector2Int TargetTile { get; set; }
 
         protected CharacterMovement pacManMovement;
         protected CharacterMovement characterMovement;
@@ -88,7 +88,7 @@ namespace Pacmania.InGame.Characters.Ghost
 
         public void ReverseDirectionDueToChase()
         {
-            if (Level.GhostManager.GhostsChangeDirectionOnChase == true)
+            if (Level?.GhostManager.GhostsChangeDirectionOnChase == true)
             {
                 ReverseDirection();
             }
@@ -105,8 +105,8 @@ namespace Pacmania.InGame.Characters.Ghost
         public void Eaten()
         {
             FSM.SetState(typeof(EatenState));
-            FindObjectOfType<ScoreSpawner>().SpawnScoreFromGhost(this);
-            FindObjectOfType<Level>().AudioManager.Play(SoundType.EatGhost);
+            Level?.ScoreSpawner.SpawnScoreFromGhost(this);
+            Level?.AudioManager.Play(SoundType.EatGhost);
         }
 
         public bool IsDeadly()
@@ -131,27 +131,21 @@ namespace Pacmania.InGame.Characters.Ghost
                     allowedToGoBackIntoNest = true;
                 }
 
-                bool canGoUp = characterMovement.Arena.IsCharacterAllowedinTile(tile.x, tile.y - 1, allowedToGoBackIntoNest);
-                if (canGoUp && DesiredDirection.y <= 0)
+                if (DesiredDirection.y <= 0 && characterMovement.Arena.IsCharacterAllowedinTile(tile.x, tile.y - 1, allowedToGoBackIntoNest))
                 {
-                    newDirections.Add(new Vector2Int(0, -1));
+                    newDirections.Add(Vector2Int.down);
                 }
-                bool canGoDown = characterMovement.Arena.IsCharacterAllowedinTile(tile.x, tile.y + 1, allowedToGoBackIntoNest);
-                if (canGoDown && DesiredDirection.y >= 0)
+                if (DesiredDirection.y >= 0 && characterMovement.Arena.IsCharacterAllowedinTile(tile.x, tile.y + 1,allowedToGoBackIntoNest))
                 {
-                    newDirections.Add(new Vector2Int(0, 1));
+                    newDirections.Add(Vector2Int.up);
                 }
-
-                bool canGoLeft = characterMovement.Arena.IsCharacterAllowedinTile(tile.x - 1, tile.y, allowedToGoBackIntoNest);
-                if (canGoLeft && DesiredDirection.x <= 0)
+                if (DesiredDirection.x <= 0 && characterMovement.Arena.IsCharacterAllowedinTile(tile.x - 1, tile.y, allowedToGoBackIntoNest))
                 {
-                    newDirections.Add(new Vector2Int(-1, 0));
+                    newDirections.Add(Vector2Int.left);
                 }
-
-                bool canGoRight = characterMovement.Arena.IsCharacterAllowedinTile(tile.x + 1, tile.y, allowedToGoBackIntoNest);
-                if (canGoRight && DesiredDirection.x >= 0)
+                if (DesiredDirection.x >= 0 && characterMovement.Arena.IsCharacterAllowedinTile(tile.x + 1, tile.y, allowedToGoBackIntoNest))
                 {
-                    newDirections.Add(new Vector2Int(1, 0));
+                    newDirections.Add(Vector2Int.right);
                 }
                 DesiredDirection = GetShortestPath(newDirections, tile);
             }
@@ -161,7 +155,7 @@ namespace Pacmania.InGame.Characters.Ghost
         {
             if (newDirections.Count == 0)
             {
-                return new Vector2Int(0, -1);
+                return Vector2Int.down;
             }
             else if (newDirections.Count == 1)
             {
@@ -172,8 +166,7 @@ namespace Pacmania.InGame.Characters.Ghost
             float shortestDist = float.MaxValue;
             foreach (Vector2Int dir in newDirections)
             {
-                Vector2Int dir2 = new Vector2Int(dir.x, dir.y);
-                Vector2Int line = (tile + dir2) - TargetPosition;
+                Vector2Int line = (tile + dir) - TargetTile;
                 float distSqr = line.sqrMagnitude;
                 if (distSqr < shortestDist)
                 {
@@ -200,8 +193,6 @@ namespace Pacmania.InGame.Characters.Ghost
                 CheckForChangeDirection();
                 characterMovement.Move(DesiredDirection);
             }
-
-
         }
 
         private void OnDrawGizmos()
@@ -212,7 +203,7 @@ namespace Pacmania.InGame.Characters.Ghost
                 Arena arena = characterMovement.Arena;
                 if (arena != null)
                 {
-                    Vector3 targetPosition = characterMovement.Arena.GetArenaPositionForTileCenter(new Vector2Int(TargetPosition.x, TargetPosition.y));
+                    Vector3 targetPosition = characterMovement.Arena.GetArenaPositionForTileCenter(TargetTile);
                     Vector3 endPostion = characterMovement.Arena.GetTransformPositionFromArenaPosition(targetPosition);
                     Gizmos.color = GetComponent<ScoreColour>().ScoreColor;
                     Gizmos.DrawLine(transform.position, endPostion);

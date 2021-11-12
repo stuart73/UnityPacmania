@@ -15,12 +15,14 @@ namespace Pacmania.InGame.Characters.Pacman
         private PacmanCollision pacmanCollision;
         private Vector2 desiredDirection;
         private bool selectedJump = false;
+        private Level level;
 
         private void Awake()
         {
             characterMovement = GetComponent<CharacterMovement>();
             animator = GetComponent<Animator>();
             pacmanCollision = GetComponent<PacmanCollision>();
+            level = FindObjectOfType<Level>();
 
             if (Game.Instance.CurrentSession is DemoGameSession)
             {
@@ -34,7 +36,7 @@ namespace Pacmania.InGame.Characters.Pacman
             animator.SetFloat("Horizontal", 0);
             animator.SetFloat("Vertical", 0);
             SetShadowVisible(false);
-            FindObjectOfType<AudioManager>().Play(SoundType.DieSpin);
+            level.AudioManager.Play(SoundType.DieSpin);
 
             RecordKeyboard record = GetComponent<RecordKeyboard>();
             if (record != null)

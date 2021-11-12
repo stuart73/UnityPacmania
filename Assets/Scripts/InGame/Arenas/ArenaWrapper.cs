@@ -5,7 +5,7 @@ namespace Pacmania.InGame.Arenas
 {
     public class ArenaWrapper : MonoBehaviour
     {
-        [SerializeField] private int width = 0;
+        [SerializeField] [Range(0, 1024)] private int width = 0;
         private float halfWidth;
         private Transform pacmanScreenPosition;
         private float scale = 100.0f;

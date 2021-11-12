@@ -7,19 +7,17 @@ namespace Pacmania.InGame.Characters.Ghost
 {
     public class FrightenSiren : MonoBehaviour
     {
-        private AudioManager audioManager;
         private Level level;
         public event Action SirenStoped = delegate { };
 
         private void Awake()
         {
             level = FindObjectOfType<Level>();
-            audioManager = FindObjectOfType<AudioManager>();
         }
 
         private void FixedUpdate()
         {
-            if (audioManager.IsPlaying(SoundType.FrigtenSiren) == true)
+            if (level.AudioManager.IsPlaying(SoundType.FrigtenSiren) == true)
             {
                 GhostController[] ghosts = level.GhostManager.Ghosts;
                 int frightenGhostCount = 0;
@@ -39,14 +37,14 @@ namespace Pacmania.InGame.Characters.Ghost
 
         public void Play()
         {
-            audioManager.Play(SoundType.FrigtenSiren);
+            level.AudioManager.Play(SoundType.FrigtenSiren);
             level.ScatterChaseTimer.Paused = true;
         }
 
         public void Stop()
         {
             SirenStoped.Invoke();
-            audioManager.Stop(SoundType.FrigtenSiren);
+            level.AudioManager.Stop(SoundType.FrigtenSiren);
             level.ScatterChaseTimer.Paused = false;
         }
     }

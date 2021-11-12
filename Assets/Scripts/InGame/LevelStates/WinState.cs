@@ -24,7 +24,7 @@ namespace Pacmania.InGame.LevelStates
             level.Hud.SetLevelCompleteTextVisibility(true);
 
             // In case ghosts are frighten, stop siren.
-            UnityEngine.Object.FindObjectOfType<FrightenSiren>().Stop();
+            level.GhostManager.FrightenSiren.Stop();
 
             // If there is a courage bonus set, then enable that and play the jingle.
             if (Game.Instance.CurrentSession is PlayerGameSession session && session.CourageBonus != 0)
@@ -48,16 +48,16 @@ namespace Pacmania.InGame.LevelStates
             GreyoutSprite arneaGreyoutSpriteComponent = level.Arena.GetComponent<GreyoutSprite>();       
             if ((frame % 2) == 0)
             {
-                arneaGreyoutSpriteComponent.GreyEnabled(false);
+                arneaGreyoutSpriteComponent.DisableGrey();
             }
             else
             {
-                arneaGreyoutSpriteComponent.GreyEnabled(true);
+                arneaGreyoutSpriteComponent.EnableGrey();
             }
 
             if (Game.Instance.CurrentSession is PlayerGameSession session && session.CourageBonus > 0)
             {
-                session.AddScore(bonusStep);
+                session.AddScore(level, bonusStep);
                 session.CourageBonus -= bonusStep;
             }
             else if (frame >= Game.FramesPerSecond * secondsInWinningState)

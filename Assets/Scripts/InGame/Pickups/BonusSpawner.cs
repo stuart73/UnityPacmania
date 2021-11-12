@@ -12,16 +12,15 @@ namespace Pacmania.InGame.Pickups
         [SerializeField] private Bonus secondBonus = default;
         [SerializeField] private Bonus thirdBonus = default;
         [SerializeField] private Bonus secretBonus = default;
-        [SerializeField] private int secretBonusOdds = 2;
-        [SerializeField] private int firstBonusPellets = 30;
-        [SerializeField] private int secondBonusPellets = 45;
-        [SerializeField] private int thirdBonusPellets = 60;
+        [SerializeField] [Range(1, 10)]  private int secretBonusOdds = 2;
+        [SerializeField] [Range(1, 150)] private int firstBonusPellets = 30;
+        [SerializeField] [Range(2, 180)] private int secondBonusPellets = 45;
+        [SerializeField] [Range(3, 210)] private int thirdBonusPellets = 60;
 
         private int sortingOrder = 0;
         private Vector3 startingLocation;
         private int pelletsEatenCount = 0;
         private const float secondsToShowBonusText = 2.0f;
-        private Hud hud;
         private bool secretBonusSpawned = false;
         private Level level;
         private const string fruitTargetString = "FRUIT TARGET!";
@@ -29,14 +28,13 @@ namespace Pacmania.InGame.Pickups
 
         private void Awake()
         {
-            hud = FindObjectOfType<Hud>();
             level = FindObjectOfType<Level>();
         }
 
         private void Start()
         {
-            FindObjectOfType<PacmanCollision>().EatenPellete += BonusSpawner_EatenPellete;
-            Arena arena = FindObjectOfType<Arena>();
+            level.Pacman.GetComponent<PacmanCollision>().EatenPellete += BonusSpawner_EatenPellete;
+            Arena arena = level.Arena;
             sortingOrder = arena.GetTileSortingOrder(arena.BonusTile);
             startingLocation = arena.GetTransformPositionFromArenaPosition(arena.GetArenaPositionForTileCenter(arena.BonusTile));
         }
@@ -82,6 +80,7 @@ namespace Pacmania.InGame.Pickups
 
         private IEnumerator ShowBonusTextCoroutine(GameObject forObject)
         {
+            Hud hud = level.Hud;
             hud.SetBonusTargetTextVisibility(true);
             if (forObject.name == "Fruit")
             {

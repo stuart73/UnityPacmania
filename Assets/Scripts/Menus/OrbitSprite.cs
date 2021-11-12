@@ -5,12 +5,12 @@ namespace Pacmania.Menus
 {
     public class OrbitSprite : MonoBehaviour
     {
-        [SerializeField] private float middleX = 0.55f;
-        [SerializeField] private float middleY = 0.95f;
-        [SerializeField] private float diameterX = 1.1f;
-        [SerializeField] private float diameterY = 0.42f;
-        [SerializeField] private float speed = 3.8f;
-        [SerializeField] private float timeOffset = 0;
+        [SerializeField] [Range(0.0f, 5.0f)] private float middleX = 0.55f;
+        [SerializeField] [Range(0.0f, 5.0f)] private float middleY = 0.95f;
+        [SerializeField] [Range(0.0f, 5.0f)] private float diameterX = 1.1f;
+        [SerializeField] [Range(0.0f, 5.0f)] private float diameterY = 0.42f;
+        [SerializeField] [Range(0.0f, 8.0f)] private float speed = 3.8f;
+        [SerializeField] [Range(-3.0f, 3.0f)] private float timeOffset = 0;
 
         private void Update()
         {

@@ -7,14 +7,14 @@ namespace Pacmania.InGame.Characters
     [RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
     public class CharacterMovement : MonoBehaviour
     {
-        [SerializeField] private float defaultSpeed = 1.4f;
+        [SerializeField] [Range(0.4f, 2.0f)] private float defaultSpeed = 1.4f;
         public float DefaultSpeed
         {
             get => defaultSpeed;
             set => defaultSpeed = value;
         }
 
-        [SerializeField] private float speedIncreasePerLevel = 0.025f;
+        [SerializeField] [Range(0.01f, 0.04f)] private float speedIncreasePerLevel = 0.025f;
         [SerializeField] private bool allowedInGhostNest = false;
         [SerializeField] private Vector3 currentDirection;
         public Vector3 CurrentDirection
@@ -24,7 +24,8 @@ namespace Pacmania.InGame.Characters
 
         public float SpeedCoefficient { get; set; } = 1;
         public Arena Arena { get; private set; }
-        public Animator Animator { get; private set; }
+        public Level Level { get; private set; }
+        public Animator CharacterAnimator { get; private set; }
         public bool Paused { get; set; } = true;
 
         private Vector3 arenaPosition;
@@ -41,14 +42,15 @@ namespace Pacmania.InGame.Characters
 
         void Awake()
         {
+            Level = FindObjectOfType<Level>();
             Arena = FindObjectOfType<Arena>();
-            Level level = FindObjectOfType<Level>();
-            Animator = GetComponent<Animator>();
+
+            CharacterAnimator = GetComponent<Animator>();
             jumpingComponent = GetComponent<Jumping>();
 
-            if (level != null)
+            if (Level != null)
             {
-                defaultSpeed += (speedIncreasePerLevel * (level.LevelNumber - 1));
+                defaultSpeed += (speedIncreasePerLevel * (Level.LevelNumber - 1));
             }
         }
 
@@ -78,8 +80,8 @@ namespace Pacmania.InGame.Characters
 
         private void SetAnimationAndSpriteOrder()
         {
-            Animator.SetFloat("Horizontal", currentDirection.x);
-            Animator.SetFloat("Vertical", -currentDirection.y);
+            CharacterAnimator.SetFloat("Horizontal", currentDirection.x);
+            CharacterAnimator.SetFloat("Vertical", -currentDirection.y);
 
             if (Arena != null)
             {
@@ -119,7 +121,6 @@ namespace Pacmania.InGame.Characters
             Vector3 oldArenaPosition = arenaPosition; // needed for teleportation test later
             Vector2Int currentTile = Arena.GetTileForArenaPosition(arenaPosition);
 
-            // Change direction checs
             if (IsInTileCenter())
             {
                 CheckDirectionChange(desiredDirection, currentTile);
@@ -143,7 +144,6 @@ namespace Pacmania.InGame.Characters
             transform.position = Arena.GetTransformPositionFromArenaPosition(arenaPosition);
 
             SetAnimationAndSpriteOrder();
-
         }
 
         private void CheckCollisionWithWalls(Vector2Int currentTile)

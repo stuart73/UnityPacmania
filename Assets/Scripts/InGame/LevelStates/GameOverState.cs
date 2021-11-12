@@ -20,7 +20,7 @@ namespace Pacmania.InGame.LevelStates
       
             level.CharacterManager.PauseCharacters();
             level.CharacterManager.HideCharacters();
-            level.Arena.GetComponent<GreyoutSprite>().GreyEnabled(true);
+            level.Arena.GetComponent<GreyoutSprite>().EnableGrey();
             level.Hud.SetGameOverTextVisibility(true);
             level.Hud.SetSeeYouTextVisibility(true);
             level.AudioManager.Play(SoundType.GameOver);

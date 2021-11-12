@@ -41,7 +41,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
                 }
             }
 
-            ghost.TargetPosition = new Vector2Int(x, y);
+            ghost.TargetTile = new Vector2Int(x, y);
    
             if (count >= Game.FramesPerSecond * secondsInConfusedState)
             {   

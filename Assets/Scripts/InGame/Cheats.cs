@@ -7,15 +7,21 @@ namespace Pacmania.InGame
 {
     public class Cheats : MonoBehaviour
     {
+        private Level level;
+        private void Awake()
+        {
+            level = FindObjectOfType<Level>();
+        }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                FindObjectOfType<PacmanCollision>().Invincible = true;
+                level.Pacman.GetComponent<PacmanCollision>().Invincible = true;
             }
             else if (Input.GetKeyDown(KeyCode.F2))
             {
-                FindObjectOfType<PacmanCollision>().Invincible = false;
+                level.Pacman.GetComponent<PacmanCollision>().Invincible = false;
             }
             else if (Input.GetKeyDown(KeyCode.F3))
             {
@@ -27,7 +33,7 @@ namespace Pacmania.InGame
             }
             else if (Input.GetKeyDown(KeyCode.F5))
             {
-                FindObjectOfType<Level>().WinLevel();
+                level.WinLevel();
             }
         }
     }

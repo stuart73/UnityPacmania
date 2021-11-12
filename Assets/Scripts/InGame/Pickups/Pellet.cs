@@ -8,7 +8,7 @@ namespace Pacmania.InGame.Pickups
         public override void OnPickedUp()
         {
             base.OnPickedUp();
-            FindObjectOfType<AudioManager>().Play(SoundType.EatPellet); 
+            level.AudioManager.Play(SoundType.EatPellet); 
         }
     }
 }

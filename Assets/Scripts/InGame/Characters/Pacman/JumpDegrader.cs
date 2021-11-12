@@ -6,8 +6,8 @@ namespace Pacmania.InGame.Characters.Pacman
 
     public class JumpDegrader : MonoBehaviour
     {
-        [SerializeField] private float degradeJumpStartTime = 120;
-        [SerializeField] private float degradeJumpEndTime = 240;
+        [SerializeField] [Range(0.0f, 150.0f)] private float degradeJumpStartTime = 120;
+        [SerializeField] [Range(150.0f, 300.0f)]  private float degradeJumpEndTime = 240;
 
         private float startTime = 0;
         private Jumping jumpingComponent;

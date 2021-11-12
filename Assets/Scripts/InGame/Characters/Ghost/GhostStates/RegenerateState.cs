@@ -6,11 +6,10 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
     public class RegenerateState : BaseState
     {
-        private const float secondsRegenerating = 1.0f;
         public override void OnStateEnter(GameObject forGameObject)
         {
             CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.Animator.SetInteger("State", GhostAnimationState.Regenerating);
+            cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Regenerating);
 
             GhostController ghost = forGameObject.GetComponent<GhostController>();
             ghost.DesiredDirection = new Vector2Int(0, 0);
@@ -20,7 +19,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override Type Update(GameObject forGameObject)
         {
             CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            if (cm.Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= secondsRegenerating)
+            if (cm.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) // range 0...1, so 1 = finished.
             {
                 Level level = forGameObject.GetComponent<GhostController>().Level;
 

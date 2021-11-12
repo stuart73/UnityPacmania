@@ -1,4 +1,5 @@
-﻿
+﻿using Pacmania.InGame;
+
 namespace Pacmania.GameManagement
 {
     public abstract class GameSession
@@ -11,7 +12,7 @@ namespace Pacmania.GameManagement
         public int Score { get; set; } = 0;
         public abstract void StartNextScene();
         public abstract void CompletedLevel();
-        public virtual void AddScore(int amount) { }
+        public virtual void AddScore(Level level, int amount) { }
 
         public abstract void GameOver();
     }

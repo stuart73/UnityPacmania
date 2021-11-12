@@ -8,12 +8,11 @@ namespace Pacmania.InGame.Pickups
     public abstract class Bonus : Pickup
     {
         private int frame = 0;
-        private float secondsShownFor = 10;
+        private float secondsShownFor = 10;     
 
         private void Start()
-        {
-            Arena arena = FindObjectOfType<Arena>();
-            arena.SetTilePickUp(arena.BonusTile, this);
+        {     
+            level.Arena.SetTilePickUp(level.Arena.BonusTile, this);
         }
 
         private void FixedUpdate()
@@ -21,8 +20,7 @@ namespace Pacmania.InGame.Pickups
             frame++;
             if (frame >= secondsShownFor * Game.FramesPerSecond)
             {
-                Arena arena = FindObjectOfType<Arena>();
-                arena.SetTilePickUp(arena.BonusTile, null);
+                level.Arena.SetTilePickUp(level.Arena.BonusTile, null);
                 Destroy(gameObject);
             }
         }

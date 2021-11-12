@@ -4,12 +4,12 @@ namespace Pacmania.InGame.Characters.Ghost.AI
 {
     public class PinkyAI : GhostAI
     { 
-        public override Vector2Int ScatterPosition()
+        public override Vector2Int GetScatterTile()
         {
             return characterMovement.Arena.TopleftTile;  
         }
 
-        public override Vector2Int ChasePosition()
+        public override Vector2Int GetChaseTile()
         {
             // Chase position is 4 tiles in front of pacman.
             Vector3 currentPacManDirection = pacmanCharacterMovement.CurrentDirection;

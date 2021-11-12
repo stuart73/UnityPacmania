@@ -6,7 +6,7 @@ namespace Pacmania.GameManagement
     {
         public int NewEntryIndex { get; private set; } = 0;
 
-        public List<HighScoreTableEntry> Entries = new List<HighScoreTableEntry> {   new HighScoreTableEntry(100000,1000, "TAR" ),
+        public List<HighScoreTableEntry> Entries = new List<HighScoreTableEntry> {   new HighScoreTableEntry(100000,5, "TAR" ),
                                                                                 new HighScoreTableEntry(90000,5, "DAI" ),
                                                                                 new HighScoreTableEntry(80000,4, "FFP" ),
                                                                                 new HighScoreTableEntry(70000,4, "PAC" ),

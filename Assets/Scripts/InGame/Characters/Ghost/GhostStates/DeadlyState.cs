@@ -9,38 +9,41 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override Type Update(GameObject forGameObject)
         {
             Level level = forGameObject.GetComponent<GhostController>().Level;
-
             CharacterMovement pacmanMovement = level.Pacman.GetComponent<CharacterMovement>();
             CharacterMovement ghostMovement = forGameObject.GetComponent<CharacterMovement>();
 
-            CheckIfPacmanAboveUs(pacmanMovement, ghostMovement);
+            bool pacmanAboveUs = IsPacmanAboveUs(pacmanMovement, ghostMovement);
+            UpdatEyes(pacmanAboveUs, ghostMovement);
 
-            // If we are on the same tile as pacman, then we go into confused state.
-            if (IsGhostOnSameTileAsPacman(pacmanMovement, ghostMovement) == true)
+            // If pacman is above us then go into confused state (if not already).
+            if (pacmanAboveUs == true)
             {
                 return typeof(ConfusedState);
             }
             return GetType();
         }
 
-        private bool IsGhostOnSameTileAsPacman(CharacterMovement pacmanMovement, CharacterMovement ghostMovement)
+        private bool IsPacmanAboveUs(CharacterMovement pacmanMovement, CharacterMovement ghostMovement)
         {
-            Vector2Int Ghosttile = ghostMovement.Arena.GetTileForArenaPosition(ghostMovement.ArenaPosition);
-            Vector2Int PacmanTile = pacmanMovement.Arena.GetTileForArenaPosition(pacmanMovement.ArenaPosition);
-            return Ghosttile == PacmanTile;
+            // Pacman is considered above us if the longest axis on a vector between us is the z axis.
+            Vector3 ghostToPacman = pacmanMovement.ArenaPosition - ghostMovement.ArenaPosition;
+            float zAxisLength = Math.Abs(ghostToPacman.z);
+            if (zAxisLength > Math.Abs(ghostToPacman.x) && zAxisLength > Math.Abs(ghostToPacman.y))
+            {
+                return true;
+            }
+            return false;
         }
 
-        private void CheckIfPacmanAboveUs(CharacterMovement pacmanMovement, CharacterMovement ghostMovement)
+        private void UpdatEyes(bool isPacmanAboveUs, CharacterMovement ghostMovement)
         {
-            // If pacman is above us, then look up!
-            Vector3 ghostToPacman = pacmanMovement.ArenaPosition - ghostMovement.ArenaPosition;
-            if (Math.Abs(ghostToPacman.z) > Math.Abs(ghostToPacman.x) && Math.Abs(ghostToPacman.z) > Math.Abs(ghostToPacman.y))
+            if (isPacmanAboveUs == true)
             {
-                ghostMovement.Animator.SetInteger("State", GhostAnimationState.LookingUp);
+                ghostMovement.CharacterAnimator.SetInteger("State", GhostAnimationState.LookingUp);
             }
             else
             {
-                ghostMovement.Animator.SetInteger("State", GhostAnimationState.Normal);
+                ghostMovement.CharacterAnimator.SetInteger("State", GhostAnimationState.Normal);
             }
         }
     }

@@ -103,11 +103,11 @@ namespace Pacmania.Scripts.Cutscenes
             {             
                 if (pacmanYPos > yPositionWhenGhostsLookUp)
                 {
-                    ghost.GetComponent<CharacterMovement>().Animator.SetInteger("State", GhostAnimationState.LookingUp);
+                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger("State", GhostAnimationState.LookingUp);
                 }
                 else
                 {
-                    ghost.GetComponent<CharacterMovement>().Animator.SetInteger("State", GhostAnimationState.Normal);
+                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger("State", GhostAnimationState.Normal);
                 }
             }
         }

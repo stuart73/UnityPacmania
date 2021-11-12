@@ -10,13 +10,12 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override void OnStateEnter(GameObject forGameObject)
         {
             CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.Animator.SetInteger("State", GhostAnimationState.Eaten);
+            cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Eaten);
 
             // Set our TargetPostion back to nest
             GhostController ghost = forGameObject.GetComponent<GhostController>();
-            Vector2Int nestEntranceTile = cm.Arena.NestEntranceTile;
 
-            ghost.TargetPosition = new Vector2Int(nestEntranceTile.x, nestEntranceTile.y);
+            ghost.TargetTile = cm.Arena.NestEntranceTile;
             cm.SpeedCoefficient = speedIncreaseForEatenEyes; 
 
             // Hide the eyes until next update called (i.e. there should be a short pause from the level state).
@@ -39,7 +38,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 
             if (tile == cm.Arena.NestEntranceTile)
             {
-                forGameObject.GetComponent<GhostController>().TargetPosition = nestTile;
+                forGameObject.GetComponent<GhostController>().TargetTile = nestTile;
             }
 
             if (tile == nestTile)
