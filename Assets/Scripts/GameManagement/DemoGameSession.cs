@@ -22,27 +22,27 @@ namespace Pacmania.GameManagement
 
             if (currentSequenceIndex == 1 || currentSequenceIndex == 5)
             {
-                SceneManager.LoadScene("Logo");
+                SceneManager.LoadScene(SceneNames.Logo);
             }
             else if (currentSequenceIndex == 2)
             {
-                SceneManager.LoadScene("Level2");
+                SceneManager.LoadScene(SceneNames.LevelPrefix + "2");
             }
             else if (currentSequenceIndex == 3 || currentSequenceIndex == 7)
             {
-                SceneManager.LoadScene("HighScore");
+                SceneManager.LoadScene(SceneNames.HighScore);
             }
             else if (currentSequenceIndex == 4)
             {
-                SceneManager.LoadScene("Level4");
+                SceneManager.LoadScene(SceneNames.LevelPrefix + "4");
             }  
             else if (currentSequenceIndex == 6)
             {
-                SceneManager.LoadScene("Level6");
+                SceneManager.LoadScene(SceneNames.LevelPrefix + "6");
             }
             else if (currentSequenceIndex == 8)
             {
-                SceneManager.LoadScene("Level1");
+                SceneManager.LoadScene(SceneNames.LevelPrefix + "1");
             }
         }
 
@@ -59,7 +59,7 @@ namespace Pacmania.GameManagement
         public void StartPlayerGame()
         {
             Game.Instance.CreateNewPlayerGameSession();
-            SceneManager.LoadScene("WorldSelect");
+            SceneManager.LoadScene(SceneNames.WorldSelect);
         }
     }
 }

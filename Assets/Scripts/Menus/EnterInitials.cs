@@ -144,7 +144,7 @@ namespace Pacmania.Menus
             yield return new WaitForSeconds(secondsDoingEndFadeOut);
 
             Game.Instance.CreateNewDemoGameSession(0);
-            SceneManager.LoadScene("HighScore");
+            SceneManager.LoadScene(SceneNames.HighScore);
         }
     }
 }
