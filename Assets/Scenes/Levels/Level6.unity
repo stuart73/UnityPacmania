@@ -748,11 +748,6 @@ PrefabInstance:
       propertyPath: m_PhysicalUnit
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 8234111671606862948, guid: 0b86abcfd8b90b44aab15bd83cfd6b84,
-        type: 3}
-      propertyPath: m_MatchWidthOrHeight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8234111671606862949, guid: 0b86abcfd8b90b44aab15bd83cfd6b84,
         type: 3}
       propertyPath: m_Camera

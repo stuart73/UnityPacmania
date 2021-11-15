@@ -291,6 +291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2264afc3d6df20409a9df0166f54757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yOffSetPixels: 1
+  yOffsetPixels: 1
+  xOffsetPixels: 6
   arenaZPositionUsesAnimationY: 0
   animatedParent: {fileID: 0}
