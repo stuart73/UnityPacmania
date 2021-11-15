@@ -56,7 +56,7 @@ namespace Pacmania.Menus
             {
                 MoveToNextCharacter();
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            else if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) )
             {
                 RememberInitialAndMoveToNextCharacter();
                 if (currentInitialIndex >= 3)

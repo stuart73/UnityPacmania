@@ -49,7 +49,7 @@ namespace Pacmania.Menus
                 currentSelectIndex--;
                 if (currentSelectIndex < 0) currentSelectIndex = 3;         
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            else if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
             {
                 gameSession.CurrentLevel = selectIndexToStartWorld[currentSelectIndex];
                 gameSession.StartedGameOnLevel = gameSession.CurrentLevel;

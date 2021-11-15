@@ -30,7 +30,7 @@ namespace Pacmania.Menus
 
         private void Update()
         {
-            if (Input.GetKeyDown("space"))
+            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) == true)
             {
                 (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
             }
