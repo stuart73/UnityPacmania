@@ -38,8 +38,8 @@ namespace Pacmania.Cutscenes
             foreach (GhostController ghostController in ghostPack.GetComponentsInChildren<GhostController>())
             {
                 Animator animator = ghostController.GetComponent<Animator>();
-                animator.SetFloat("Horizontal", 1);
-                animator.SetFloat("Vertical", 0);
+                animator.SetFloat(CharacterAnimatorParameterNames.Horizontal, 1);
+                animator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Pacmania.Cutscenes
             // Note, not all Animators in children objects will have state animations
             foreach (GhostController ghostController in frightenPack.GetComponentsInChildren<GhostController>())
             {
-                ghostController.GetComponent<Animator>().SetInteger("State", GhostAnimationState.Frigten);
+                ghostController.GetComponent<Animator>().SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Pacmania.Cutscenes
         {
             foreach (BlinkyAI blinky in ghostPack.GetComponentsInChildren<BlinkyAI>())
             {
-                blinky.GetComponent<Animator>().SetBool("Cruise Elroy", true);
+                blinky.GetComponent<Animator>().SetBool(CharacterAnimatorParameterNames.CruiseElroy, true);
             }
         }
 
@@ -73,14 +73,14 @@ namespace Pacmania.Cutscenes
             if (Time.timeSinceLevelLoad < firstPhaseLengthInSeconds)
             {
                 // Face right.
-                pacmansAnimator.SetFloat("Horizontal", 1);
-                pacmansAnimator.SetFloat("Vertical", 0);
+                pacmansAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, 1);
+                pacmansAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
             }
             else
             {
                 // Face down.
-                pacmansAnimator.SetFloat("Vertical", -1);
-                pacmansAnimator.SetFloat("Horizontal", 0);
+                pacmansAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, -1);
+                pacmansAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, 0);
 
                 // pacman no longer jumping but now moving down so disable this.
                 pacmansAnimator.GetComponentInChildren<Shadow>().ArenaZPositionUsesAnimationY = false;
@@ -103,11 +103,11 @@ namespace Pacmania.Cutscenes
             {
                 if (pacmanYPos > yPositionWhenGhostsLookUp)
                 {
-                    ghostController.GetComponent<Animator>().SetInteger("State", GhostAnimationState.LookingUp);
+                    ghostController.GetComponent<Animator>().SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.LookingUp);
                 }
                 else
                 {
-                    ghostController.GetComponent<Animator>().SetInteger("State", GhostAnimationState.Normal);
+                    ghostController.GetComponent<Animator>().SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
                 }
             }
         }

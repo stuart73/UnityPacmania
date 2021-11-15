@@ -1,4 +1,5 @@
 ﻿using Pacmania.GameManagement;
+using Pacmania.InGame.Characters;
 using Pacmania.InGame.Characters.Ghost;
 using Pacmania.InGame.Characters.Pacman;
 using UnityEngine;
@@ -36,11 +37,11 @@ namespace Pacmania.Cutscenes
             {
                 if (pacmanYPos > yPositionWhenGhostsLookUp)
                 {
-                    ghost.GetComponent<Animator>().SetInteger("State", GhostAnimationState.LookingUp);
+                    ghost.GetComponent<Animator>().SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.LookingUp);
                 }
                 else
                 {
-                    ghost.GetComponent<Animator>().SetInteger("State", GhostAnimationState.Normal);
+                    ghost.GetComponent<Animator>().SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
                 }
             }
         }

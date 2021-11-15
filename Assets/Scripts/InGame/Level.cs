@@ -21,7 +21,6 @@ namespace Pacmania.InGame
         {
             get { return levelNumber; }
         }
-
         public Arena Arena { get; private set; }
         public Hud Hud { get; private set; }
         public PacmanController Pacman { get; private set; }

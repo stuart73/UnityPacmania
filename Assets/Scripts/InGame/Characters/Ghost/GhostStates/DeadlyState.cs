@@ -39,11 +39,11 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         {
             if (isPacmanAboveUs == true)
             {
-                ghostMovement.CharacterAnimator.SetInteger("State", GhostAnimationState.LookingUp);
+                ghostMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.LookingUp);
             }
             else
             {
-                ghostMovement.CharacterAnimator.SetInteger("State", GhostAnimationState.Normal);
+                ghostMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
             }
         }
     }

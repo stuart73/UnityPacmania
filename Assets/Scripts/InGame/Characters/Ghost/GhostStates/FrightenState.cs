@@ -16,7 +16,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             count = 0;
             ghost = forGameObject.GetComponent<GhostController>();
             cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Frigten);     
+            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);     
             cm.SpeedCoefficient = ghost.FrightenCoEfficient;     
             secondsInFrightenState = cm.Level.GhostManager.TimeInFrightenState;
         }
@@ -34,11 +34,11 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             {
                 if ((count & 0xf) < 8)
                 {
-                    cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Frigten);
+                    cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
                 }
                 else
                 {
-                    cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Normal);
+                    cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
                 }
             }
 

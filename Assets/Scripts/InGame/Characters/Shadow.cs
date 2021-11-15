@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Pacmania.GameManagement;
 using Pacmania.InGame.Arenas;
 
 namespace Pacmania.InGame.Characters
@@ -7,7 +6,8 @@ namespace Pacmania.InGame.Characters
     [RequireComponent(typeof(Animator))]
     public class Shadow : MonoBehaviour
     {
-        [SerializeField] [Range(0.0f, 5.0f)] private float yOffSetPixels = 1;
+        [SerializeField] [Range(0.0f, 10.0f)] private float xOffsetPixels = 6;
+        [SerializeField] [Range(0.0f, 5.0f)] private float yOffsetPixels = 0;
 
         // Used in cut scenes
         [SerializeField] private bool arenaZPositionUsesAnimationY = false;
@@ -39,41 +39,44 @@ namespace Pacmania.InGame.Characters
                 zOffset += animatedParent.position.y * Arena.spritePixelPerUnit;
             }
 
+            string parameterName = CharacterAnimatorParameterNames.ShadowNumber;
             if (UseEyesShadow == true)
             {
-                animator.SetInteger("ShadowNumber", 3);
+                animator.SetInteger(parameterName, 3);
             }
             else
             {
                 if (zOffset < 6)
                 {
-                    animator.SetInteger("ShadowNumber", 1);
+                    animator.SetInteger(parameterName, 1);
                 }
                 else if (zOffset < 9)
                 {
-                    animator.SetInteger("ShadowNumber", 2);
+                    animator.SetInteger(parameterName, 2);
                 }
                 else if (zOffset < 12)
                 {
-                    animator.SetInteger("ShadowNumber", 3);
+                    animator.SetInteger(parameterName, 3);
                 }
                 else if (zOffset < 16)
                 {
-                    animator.SetInteger("ShadowNumber", 4);
+                    animator.SetInteger(parameterName, 4);
                 }
                 else if (zOffset < 20)
                 {
-                    animator.SetInteger("ShadowNumber", 5);
+                    animator.SetInteger(parameterName, 5);
                 }
                 else
                 {
-                    animator.SetInteger("ShadowNumber", 6);
+                    animator.SetInteger(parameterName, 6);
                 }
             }
 
+            float pixelsPerUnit = Arena.spritePixelPerUnit;
+
             Vector3 newPos = transform.position;
-            newPos.y = transform.parent.position.y - (zOffset / 100.0f) + (yOffSetPixels / 100.0f);
-            newPos.x = transform.parent.position.x + 0.06f;
+            newPos.y = transform.parent.position.y - (zOffset / pixelsPerUnit) + (yOffsetPixels / pixelsPerUnit);
+            newPos.x = transform.parent.position.x + (xOffsetPixels / pixelsPerUnit);
             transform.position = newPos;
         }
     }

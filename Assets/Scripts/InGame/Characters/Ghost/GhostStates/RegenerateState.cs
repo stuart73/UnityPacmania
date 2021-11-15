@@ -9,7 +9,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override void OnStateEnter(GameObject forGameObject)
         {
             CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Regenerating);
+            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Regenerating);
 
             GhostController ghost = forGameObject.GetComponent<GhostController>();
             ghost.DesiredDirection = new Vector2Int(0, 0);

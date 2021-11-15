@@ -10,7 +10,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override void OnStateEnter(GameObject forGameObject)
         {
             CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger("State", GhostAnimationState.Eaten);
+            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Eaten);
 
             // Set our TargetPostion back to nest
             GhostController ghost = forGameObject.GetComponent<GhostController>();

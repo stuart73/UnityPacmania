@@ -80,8 +80,8 @@ namespace Pacmania.InGame.Characters
 
         private void SetAnimationAndSpriteOrder()
         {
-            CharacterAnimator.SetFloat("Horizontal", currentDirection.x);
-            CharacterAnimator.SetFloat("Vertical", -currentDirection.y);
+            CharacterAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, currentDirection.x);
+            CharacterAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, -currentDirection.y);
 
             if (Arena != null)
             {

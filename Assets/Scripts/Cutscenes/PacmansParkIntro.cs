@@ -39,15 +39,15 @@ namespace Pacmania.Scripts.Cutscenes
             foreach (GhostController ghostController in ghostPack.GetComponentsInChildren<GhostController>())
             {
                 Animator ghostAnimator = ghostController.GetComponent<Animator>();
-                ghostAnimator.SetFloat("Horizontal", 1);
-                ghostAnimator.SetFloat("Vertical", 0);
+                ghostAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, 1);
+                ghostAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
             }
         }
 
         private void SetInkyBlinkyFrigten()
         {
-            inkyAnimtor.SetInteger("State", GhostAnimationState.Frigten);
-            blinkyAnimator.SetInteger("State", GhostAnimationState.Frigten);
+            inkyAnimtor.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
+            blinkyAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
         }
 
         private void PauseAnimationsForGhostsInInnerPack()
@@ -62,19 +62,19 @@ namespace Pacmania.Scripts.Cutscenes
             BlinkyAI[] ghostPackMovements = ghostPack.GetComponentsInChildren<BlinkyAI>();
             foreach (BlinkyAI blinky in ghostPackMovements)
             {
-                blinky.GetComponent<Animator>().SetBool("Cruise Elroy", true);
+                blinky.GetComponent<Animator>().SetBool(CharacterAnimatorParameterNames.CruiseElroy, true);
             }
         }
         private void FacePacmanInkyBlinkyLeft()
         {
-            pacmanAnimator.SetFloat("Horizontal", -1);
-            pacmanAnimator.SetFloat("Vertical", 0);
+            pacmanAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, -1);
+            pacmanAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
 
-            inkyAnimtor.SetFloat("Horizontal", -1);
-            inkyAnimtor.SetFloat("Vertical", 0);
+            inkyAnimtor.SetFloat(CharacterAnimatorParameterNames.Horizontal, -1);
+            inkyAnimtor.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
 
-            blinkyAnimator.SetFloat("Horizontal", -1);
-            blinkyAnimator.SetFloat("Vertical", 0);
+            blinkyAnimator.SetFloat(CharacterAnimatorParameterNames.Horizontal, -1);
+            blinkyAnimator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
         }
 
         private void FixedUpdate()
@@ -103,11 +103,11 @@ namespace Pacmania.Scripts.Cutscenes
             {             
                 if (pacmanYPos > yPositionWhenGhostsLookUp)
                 {
-                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger("State", GhostAnimationState.LookingUp);
+                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.LookingUp);
                 }
                 else
                 {
-                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger("State", GhostAnimationState.Normal);
+                    ghost.GetComponent<CharacterMovement>().CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
                 }
             }
         }

@@ -32,9 +32,9 @@ namespace Pacmania.InGame.Characters.Pacman
 
         public void StartSpinAnimation()
         {
-            animator.SetBool("Dying", true);
-            animator.SetFloat("Horizontal", 0);
-            animator.SetFloat("Vertical", 0);
+            animator.SetBool(CharacterAnimatorParameterNames.Dying, true);
+            animator.SetFloat(CharacterAnimatorParameterNames.Horizontal, 0);
+            animator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
             SetShadowVisible(false);
             level.AudioManager.Play(SoundType.DieSpin);
 
@@ -46,7 +46,7 @@ namespace Pacmania.InGame.Characters.Pacman
         }
         public void StopSpinAnimation()
         {
-            animator.SetBool("Dying", false);
+            animator.SetBool(CharacterAnimatorParameterNames.Dying, false);
             SetShadowVisible(true);
         }
 
@@ -70,7 +70,7 @@ namespace Pacmania.InGame.Characters.Pacman
 
             desiredDirection = new Vector2(inputHorizontal, -inputVertical);  // y axis is reversed
 
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) )
             {
                 GameSession currentSession = Game.Instance.CurrentSession;
                 if (currentSession is DemoGameSession demoGameSession)

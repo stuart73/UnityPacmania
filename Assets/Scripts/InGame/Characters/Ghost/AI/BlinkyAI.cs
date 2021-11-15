@@ -41,7 +41,7 @@ namespace Pacmania.InGame.Characters.Ghost.AI
 
         public override void EnableFastAngryMode()
         {
-            GetComponent<CharacterMovement>().CharacterAnimator.SetBool("Cruise Elroy", true);
+            GetComponent<CharacterMovement>().CharacterAnimator.SetBool(CharacterAnimatorParameterNames.CruiseElroy, true);
         }
 
         public override Vector2Int GetChaseTile()
