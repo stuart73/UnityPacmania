@@ -10,7 +10,7 @@ namespace Pacmania.InGame.Pickups
             base.OnPickedUp();
             level.AudioManager.Play(SoundType.EatPowerPellet);
             level.GhostManager.FrightenAll();
-            level.ScoreSpawner.RedPelletEaten = true;
+            level.GhostManager.RedPelletEaten = true;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Pacmania.InGame.ScoreSprites
     {
         public int Score;
 
-        public void AnimationFinished()
+        private void AnimationFinished()
         {
             Destroy(gameObject);
         }

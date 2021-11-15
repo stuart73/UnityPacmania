@@ -6,6 +6,7 @@ using Pacmania.InGame.Characters.Pacman;
 using Pacmania.InGame.ScoreSprites;
 using Pacmania.InGame.Arenas;
 using Pacmania.Audio;
+using Pacmania.GameManagement;
 using UnityEditor;
 
 namespace Pacmania.InGame.Characters.Ghost
@@ -105,8 +106,21 @@ namespace Pacmania.InGame.Characters.Ghost
         public void Eaten()
         {
             FSM.SetState(typeof(EatenState));
-            Level?.ScoreSpawner.SpawnScoreFromGhost(this);
-            Level?.AudioManager.Play(SoundType.EatGhost);
+            int score = Level.GhostManager.CalculateGhostEatenScore();
+            Game.Instance.CurrentSession.AddScore(Level, score);
+            SpawnScore(score);
+            Level.AudioManager.Play(SoundType.EatGhost);
+        }
+
+        private void SpawnScore(int score)
+        {
+            Color scoreColour = new Color();
+            if (TryGetComponent(out ScoreColour colourComponent) == true)
+            {
+                scoreColour = colourComponent.ScoreColor;
+            }
+
+            Level.ScoreSpawner.Spawn(score, gameObject, scoreColour, true);       
         }
 
         public bool IsDeadly()

@@ -18,7 +18,7 @@ namespace Pacmania.InGame.Pickups
         {
             base.OnPickedUp();
             level.AudioManager.Play(SoundType.EatFruit);
-            level.ScoreSpawner.SpawnScoreFromFruit(this);
+            level.ScoreSpawner.Spawn(Score, gameObject, ScoreColor, false);
         }
 
     }
