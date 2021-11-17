@@ -12,8 +12,7 @@ namespace Pacmania.GameManagement
         public int Score { get; set; } = 0;
         public abstract void StartNextScene();
         public abstract void CompletedLevel();
-        public virtual void AddScore(Level level, int amount) { }
-
+        public abstract void AddScore(Level level, int amount);
         public abstract void GameOver();
     }
 }

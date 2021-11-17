@@ -22,9 +22,9 @@ namespace Pacmania.InGame.Characters.Ghost
     
         // Holds a reference to all the ghost controlles on the level
         public GhostController[] Ghosts { get; private set; }
+        public ScatterChaseTimer ScatterChaseTimer { get; private set; }
 
-        public FrightenSiren FrightenSiren { get; private set; }
-
+        private Level level;
         private int scoreMultipler = 0;
 
         private static readonly int[] GhostScoreFromEaten = { 0, 200, 400, 800, 1600, 3200, 7650 };
@@ -33,10 +33,15 @@ namespace Pacmania.InGame.Characters.Ghost
         private void Awake()
         {
             Ghosts = FindObjectsOfType<GhostController>();
-            FrightenSiren = FindObjectOfType<FrightenSiren>();
-            if (FrightenSiren != null)
+            level = FindObjectOfType<Level>();
+            ScatterChaseTimer = GetComponent<ScatterChaseTimer>();
+        }
+
+        private void Start()
+        {
+            if (level != null)
             {
-                FrightenSiren.SirenStoped += ScoreSpawner_SirenStoped;
+                level.FrightenSiren.SirenStoped += ScoreSpawner_SirenStoped;
             }
         }
 
@@ -59,7 +64,10 @@ namespace Pacmania.InGame.Characters.Ghost
             {
                 ghost.Fright();
             }
-            FrightenSiren.Play();
+            if (level != null)
+            {
+                level.FrightenSiren.Play();
+            }
         }
 
         public void ResetGhostStates()

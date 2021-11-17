@@ -209,6 +209,16 @@ namespace Pacmania.InGame.Characters.Ghost
             }
         }
 
+        private void Update()
+        {
+            // We may need to modify the screen position based on where pac-man is on the screen to take into account that the arena wraps around.
+            Arena arena = characterMovement.Arena;
+            if (arena != null && arena.ArenaWrapper != null)
+            {
+                transform.position = arena.ArenaWrapper.GetClosestWrappedPosition(transform.position);
+            }
+        }
+
         private void OnDrawGizmos()
         {
 #if UNITY_EDITOR
@@ -227,16 +237,7 @@ namespace Pacmania.InGame.Characters.Ghost
 #endif
         }
 
-        private void LateUpdate()
-        {
-            // We've moved the ghost and calculated the screen position during Update(), but we then may need to modify the screen position
-            // further based on where pac-man is on the screen.  This is to take into account that the arena wraps around.
-            Arena arena = characterMovement.Arena;
-            if (arena != null && arena.ArenaWrapper != null)
-            {
-                transform.position = characterMovement.Arena.ArenaWrapper.GetClosestWrappedPosition(transform.position);
-            }
-        }
+     
 
         public void SetVisible(bool value)
         {

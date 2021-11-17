@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Pacmania.InGame.Characters.Ghost.AI;
 
 namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
@@ -9,15 +8,11 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         public override Type Update(GameObject forGameObject)
         {
             Type nextState = GetType();
-
-            GhostAI ghostAI = forGameObject.GetComponent<GhostAI>();
-            GhostController ghostController = forGameObject.GetComponent<GhostController>();
-
             ghostController.TargetTile = ghostAI.GetScatterTile();
 
-            Level level = forGameObject.GetComponent<GhostController>().Level;
+            Level level = ghostController.Level;
            
-            if (level.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.chase)
+            if (level.GhostManager.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.chase)
             {
                 ghostController.ReverseDirectionDueToChase();
                 nextState = typeof(ChassingState);

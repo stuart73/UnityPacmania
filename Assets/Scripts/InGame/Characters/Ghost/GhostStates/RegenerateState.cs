@@ -6,24 +6,26 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
     public class RegenerateState : BaseState
     {
-        public override void OnStateEnter(GameObject forGameObject)
-        {
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Regenerating);
+        private GhostManager ghostManager;
+        private CharacterMovement characterMovement;
+        private GhostController ghostController;
 
-            GhostController ghost = forGameObject.GetComponent<GhostController>();
-            ghost.DesiredDirection = new Vector2Int(0, 0);
-      
+        public override void OnStateEnter(GameObject forGameObject)
+        {     
+            characterMovement = forGameObject.GetComponent<CharacterMovement>();
+
+            ghostManager = characterMovement.Level.GhostManager;
+            characterMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Regenerating);
+
+            ghostController = forGameObject.GetComponent<GhostController>();
+            ghostController.DesiredDirection = new Vector2Int(0, 0);     
         }
 
         public override Type Update(GameObject forGameObject)
         {
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            if (cm.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) // range 0...1, so 1 = finished.
+            if (characterMovement.CharacterAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1) // range 0...1, so 1 = finished.
             {
-                Level level = forGameObject.GetComponent<GhostController>().Level;
-
-                if (level.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.scatter)
+                if (ghostManager.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.scatter)
                 {
                     return typeof(ScatterState);
                 }
@@ -38,10 +40,9 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 
         public override void OnStateLeave(GameObject forGameObject)
         {
-            // move out of nest
-            GhostController ghost = forGameObject.GetComponent<GhostController>();
-            ghost.DesiredDirection = new Vector2Int(0, -1);
-            ghost.LastTile = new Vector2Int(0, 0);
+            // Move out of nest.
+            ghostController.DesiredDirection = new Vector2Int(0, -1);
+            ghostController.LastTile = new Vector2Int(0, 0);
         }
     }
 }

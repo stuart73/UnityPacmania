@@ -7,14 +7,16 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
     public class ConfusedState : DeadlyState
     {
         private int count =0;
-        private ScatterChaseTimer.currentGhostAction currentStateAction;
+        private ScatterChaseTimer.currentGhostAction revivedAction;
         private const float secondsInConfusedState = 5.0f;
+        private GhostManager ghostManager;
 
         public override void OnStateEnter(GameObject forGameObject)
-        {
+        {    
+            base.OnStateEnter(forGameObject);
             count = 0;
-            Level level = forGameObject.GetComponent<GhostController>().Level;
-            currentStateAction = level.ScatterChaseTimer.CurrentAction;
+            ghostManager = level.GhostManager;
+            revivedAction = ghostManager.ScatterChaseTimer.CurrentAction;
         }
 
         public override Type Update(GameObject forGameObject)
@@ -23,29 +25,25 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             count++;
 
             // Set random target position.
-            GhostController ghost = forGameObject.GetComponent<GhostController>();
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
+            int x = level.RandomStream.Range(0, ghostCharacterMovement.Arena.Width());
+            int y = level.RandomStream.Range(0, ghostCharacterMovement.Arena.Height());
 
-            int x = ghost.Level.RandomStream.Range(0, cm.Arena.Width());
-            int y = ghost.Level.RandomStream.Range(0, cm.Arena.Height());
+            ScatterChaseTimer.currentGhostAction currentAction = ghostManager.ScatterChaseTimer.CurrentAction;
 
-            Level level = forGameObject.GetComponent<GhostController>().Level;
-
-            if (level.ScatterChaseTimer.CurrentAction != currentStateAction)
+            if (currentAction != revivedAction)
             {
-                currentStateAction = level.ScatterChaseTimer.CurrentAction;
-
-                if (currentStateAction == ScatterChaseTimer.currentGhostAction.chase)
+                revivedAction = currentAction;
+                if (revivedAction == ScatterChaseTimer.currentGhostAction.chase)
                 {
-                    ghost.ReverseDirectionDueToChase();
+                    ghostController.ReverseDirectionDueToChase();
                 }
             }
 
-            ghost.TargetTile = new Vector2Int(x, y);
+            ghostController.TargetTile = new Vector2Int(x, y);
    
             if (count >= Game.FramesPerSecond * secondsInConfusedState)
             {   
-                if (currentStateAction == ScatterChaseTimer.currentGhostAction.scatter)
+                if (revivedAction == ScatterChaseTimer.currentGhostAction.scatter)
                 {
                     return typeof(ScatterState);
                 }

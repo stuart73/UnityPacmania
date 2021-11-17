@@ -8,37 +8,38 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
     {
         private int count = 0;
         private float secondsInFrightenState = 0;
-        private CharacterMovement cm;
-        private GhostController ghost;
+        private CharacterMovement characterMovement;
+        private GhostController ghostController;
 
         public override void OnStateEnter(GameObject forGameObject)
         {
             count = 0;
-            ghost = forGameObject.GetComponent<GhostController>();
-            cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);     
-            cm.SpeedCoefficient = ghost.FrightenCoEfficient;     
-            secondsInFrightenState = cm.Level.GhostManager.TimeInFrightenState;
+            ghostController = forGameObject.GetComponent<GhostController>();
+            characterMovement = forGameObject.GetComponent<CharacterMovement>();
+            characterMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);     
+            characterMovement.SpeedCoefficient = ghostController.FrightenCoEfficient;     
+            secondsInFrightenState = characterMovement.Level.GhostManager.TimeInFrightenState;
         }
 
         public override Type Update(GameObject forGameObject)
         {
             count++;
-            int x = ghost.Level.RandomStream.Range(0, cm.Arena.Width());
-            int y = ghost.Level.RandomStream.Range(0, cm.Arena.Height());
+            Level level = characterMovement.Level;
+            int x = level.RandomStream.Range(0, characterMovement.Arena.Width());
+            int y = level.RandomStream.Range(0, characterMovement.Arena.Height());
 
-            ghost.TargetTile = new Vector2Int(x, y);
+            ghostController.TargetTile = new Vector2Int(x, y);
   
             // Make ghost flash near end
             if (count >= (secondsInFrightenState * 0.8f) / Time.fixedDeltaTime)
             {
                 if ((count & 0xf) < 8)
                 {
-                    cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
+                    characterMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Frigten);
                 }
                 else
                 {
-                    cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
+                    characterMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Normal);
                 }
             }
 
@@ -52,7 +53,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 
         public override void OnStateLeave(GameObject forGameObject)
         {
-            cm.SpeedCoefficient = 1;
+            characterMovement.SpeedCoefficient = 1;
         }
     }
 }

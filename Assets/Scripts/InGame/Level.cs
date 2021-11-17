@@ -24,7 +24,7 @@ namespace Pacmania.InGame
         public Arena Arena { get; private set; }
         public Hud Hud { get; private set; }
         public PacmanController Pacman { get; private set; }
-        public ScatterChaseTimer ScatterChaseTimer { get; private set; }
+        public FrightenSiren FrightenSiren { get; private set; }
         public CharacterManager CharacterManager { get; private set; }
         public GhostManager GhostManager { get; private set; }
         public ScoreSpawner ScoreSpawner { get; private set; }
@@ -39,7 +39,7 @@ namespace Pacmania.InGame
             Arena = FindObjectOfType<Arena>();
             Hud = FindObjectOfType<Hud>();
             Pacman = FindObjectOfType<PacmanController>();
-            ScatterChaseTimer = FindObjectOfType<ScatterChaseTimer>();
+            FrightenSiren = FindObjectOfType<FrightenSiren>();
             AudioManager = FindObjectOfType<Audio.AudioManager>();
             GhostManager = FindObjectOfType<GhostManager>();
             ScoreSpawner = FindObjectOfType<ScoreSpawner>();
@@ -57,9 +57,9 @@ namespace Pacmania.InGame
             {
                 Debug.LogError("No pacman found when starting level", this);
             }
-            if (ScatterChaseTimer == null)
+            if (FrightenSiren == null)
             {
-                Debug.LogError("No ScatterChaseTimer found when starting level", this);
+                Debug.LogError("No FrightenSiren found when starting level", this);
             }
             if (AudioManager == null)
             {

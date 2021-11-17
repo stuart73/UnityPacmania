@@ -24,7 +24,7 @@ namespace Pacmania.InGame.LevelStates
             level.Hud.SetLevelCompleteTextVisibility(true);
 
             // In case ghosts are frighten, stop siren.
-            level.GhostManager.FrightenSiren.Stop();
+            level.FrightenSiren.Stop();
 
             // If there is a courage bonus set, then enable that and play the jingle.
             if (Game.Instance.CurrentSession is PlayerGameSession session && session.CourageBonus != 0)

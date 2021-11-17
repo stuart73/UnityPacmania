@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Pacmania.InGame.Characters.Ghost.AI;
 
 namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
@@ -10,12 +9,9 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
         {
             Type nextState = GetType();
 
-            GhostAI ghostAI = forGameObject.GetComponent<GhostAI>();
-            forGameObject.GetComponent<GhostController>().TargetTile = ghostAI.GetChaseTile();
+            ghostController.TargetTile = ghostAI.GetChaseTile();
 
-            Level level = forGameObject.GetComponent<GhostController>().Level;
-
-            if (level.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.scatter)
+            if (level.GhostManager.ScatterChaseTimer.CurrentAction == ScatterChaseTimer.currentGhostAction.scatter)
             {        
                 nextState = typeof(ScatterState);
             }

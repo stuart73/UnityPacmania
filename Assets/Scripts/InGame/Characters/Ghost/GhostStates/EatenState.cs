@@ -7,19 +7,23 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
     public class EatenState : BaseState
     {
         private const float speedIncreaseForEatenEyes = 2.0f;
+        private CharacterMovement ghostCharacterMovement;
+        private GhostController ghostController;
+        private SpriteRenderer spriteRenderer;
+
         public override void OnStateEnter(GameObject forGameObject)
         {
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Eaten);
+            ghostCharacterMovement = forGameObject.GetComponent<CharacterMovement>();
+            ghostCharacterMovement.CharacterAnimator.SetInteger(CharacterAnimatorParameterNames.State, GhostAnimationState.Eaten);
 
             // Set our TargetPostion back to nest
-            GhostController ghost = forGameObject.GetComponent<GhostController>();
+            ghostController = forGameObject.GetComponent<GhostController>();
 
-            ghost.TargetTile = cm.Arena.NestEntranceTile;
-            cm.SpeedCoefficient = speedIncreaseForEatenEyes; 
+            ghostController.TargetTile = ghostCharacterMovement.Arena.NestEntranceTile;
+            ghostCharacterMovement.SpeedCoefficient = speedIncreaseForEatenEyes; 
 
             // Hide the eyes until next update called (i.e. there should be a short pause from the level state).
-            SpriteRenderer spriteRenderer = forGameObject.GetComponent<SpriteRenderer>();
+            spriteRenderer = forGameObject.GetComponent<SpriteRenderer>();
             spriteRenderer.enabled = false;
 
             SetShadowToEyes(forGameObject, true);
@@ -27,18 +31,16 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 
         public override Type Update(GameObject forGameObject)
         {
-            SpriteRenderer spriteRenderer = forGameObject.GetComponent<SpriteRenderer>();
             spriteRenderer.enabled = true;
 
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            if (cm.IsInTileCenter() == false) return GetType();
+            if (ghostCharacterMovement.IsInTileCenter() == false) return GetType();
 
-            Vector2Int tile = cm.GetTileIn();
-            Vector2Int nestTile = cm.Arena.NestTile;
+            Vector2Int tile = ghostCharacterMovement.GetTileIn();
+            Vector2Int nestTile = ghostCharacterMovement.Arena.NestTile;
 
-            if (tile == cm.Arena.NestEntranceTile)
+            if (tile == ghostCharacterMovement.Arena.NestEntranceTile)
             {
-                forGameObject.GetComponent<GhostController>().TargetTile = nestTile;
+                ghostController.TargetTile = nestTile;
             }
 
             if (tile == nestTile)
@@ -51,8 +53,7 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
 
         public override void OnStateLeave(GameObject forGameObject)
         {
-            CharacterMovement cm = forGameObject.GetComponent<CharacterMovement>();
-            cm.SpeedCoefficient = 1;
+            ghostCharacterMovement.SpeedCoefficient = 1;
             SetShadowToEyes(forGameObject, false);
         }
 

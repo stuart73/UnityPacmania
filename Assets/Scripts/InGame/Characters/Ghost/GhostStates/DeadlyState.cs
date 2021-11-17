@@ -1,19 +1,31 @@
 ﻿using Pacmania.Utilities.StateMachines;
 using System;
 using UnityEngine;
+using Pacmania.InGame.Characters.Ghost.AI;
 
 namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
     public abstract class DeadlyState : BaseState
     {
+        protected CharacterMovement ghostCharacterMovement;
+        protected GhostController ghostController;
+        protected Level level;
+        protected CharacterMovement pacmanCharacterMovement;
+        protected GhostAI ghostAI;
+
+        public override void OnStateEnter(GameObject forGameObject)
+        {
+            ghostCharacterMovement = forGameObject.GetComponent<CharacterMovement>();
+            ghostController = forGameObject.GetComponent<GhostController>();
+            ghostAI = forGameObject.GetComponent<GhostAI>();
+            level = ghostCharacterMovement.Level;
+            pacmanCharacterMovement = level.Pacman.GetComponent<CharacterMovement>();
+        }
+
         public override Type Update(GameObject forGameObject)
         {
-            Level level = forGameObject.GetComponent<GhostController>().Level;
-            CharacterMovement pacmanMovement = level.Pacman.GetComponent<CharacterMovement>();
-            CharacterMovement ghostMovement = forGameObject.GetComponent<CharacterMovement>();
-
-            bool pacmanAboveUs = IsPacmanAboveUs(pacmanMovement, ghostMovement);
-            UpdatEyes(pacmanAboveUs, ghostMovement);
+            bool pacmanAboveUs = IsPacmanAboveUs(pacmanCharacterMovement, ghostCharacterMovement);
+            UpdatEyes(pacmanAboveUs, ghostCharacterMovement);
 
             // If pacman is above us then go into confused state (if not already).
             if (pacmanAboveUs == true)

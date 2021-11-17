@@ -95,7 +95,7 @@ namespace Pacmania.InGame.LevelStates
             level.Arena.GetComponent<GreyoutSprite>().DisableGrey();
             level.GhostManager.SetGhostsVisibility(false);
             level.Pacman.StartSpinAnimation();
-            level.GhostManager.FrightenSiren.Stop();
+            level.FrightenSiren.Stop();
         }
     }
 }

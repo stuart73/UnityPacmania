@@ -20,15 +20,16 @@ namespace Pacmania.InGame.Characters.Ghost
             if (level.AudioManager.IsPlaying(SoundType.FrigtenSiren) == true)
             {
                 GhostController[] ghosts = level.GhostManager.Ghosts;
-                int frightenGhostCount = 0;
+                bool foundFrightenGhost = false;
                 foreach (GhostController ghost in ghosts)
                 {
                     if (ghost.FSM.CurrrentState.GetType() == typeof(FrightenState))
                     {
-                        frightenGhostCount++;
+                        foundFrightenGhost = true;
+                        break;
                     }
                 }
-                if (frightenGhostCount == 0)
+                if (foundFrightenGhost == false)
                 {
                     Stop();
                 }
@@ -38,14 +39,14 @@ namespace Pacmania.InGame.Characters.Ghost
         public void Play()
         {
             level.AudioManager.Play(SoundType.FrigtenSiren);
-            level.ScatterChaseTimer.Paused = true;
+            level.GhostManager.ScatterChaseTimer.Paused = true;
         }
 
         public void Stop()
         {
             SirenStoped.Invoke();
             level.AudioManager.Stop(SoundType.FrigtenSiren);
-            level.ScatterChaseTimer.Paused = false;
+            level.GhostManager.ScatterChaseTimer.Paused = false;
         }
     }
 }

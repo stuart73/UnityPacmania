@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Pacmania.InGame;
 
 namespace Pacmania.GameManagement
 {
@@ -35,7 +36,7 @@ namespace Pacmania.GameManagement
             else if (currentSequenceIndex == 4)
             {
                 SceneManager.LoadScene(SceneNames.LevelPrefix + "4");
-            }  
+            }
             else if (currentSequenceIndex == 6)
             {
                 SceneManager.LoadScene(SceneNames.LevelPrefix + "6");
@@ -54,6 +55,11 @@ namespace Pacmania.GameManagement
         public override void CompletedLevel()
         {
             Debug.LogError("Completed a demo level which should not occur!");
+        }
+
+        public override void AddScore(Level level, int amount)
+        { 
+            // In demo session adding the score does nothing.
         }
 
         public void StartPlayerGame()
