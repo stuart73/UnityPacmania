@@ -30,7 +30,7 @@ namespace Pacmania.InGame
         public ScoreSpawner ScoreSpawner { get; private set; }
 
         public Audio.AudioManager AudioManager { get; private set; }
-        public SeedUniformRandomNumberStream RandomStream { get; private set; } = new SeedUniformRandomNumberStream(1);
+        public SeedUniformRandomNumberStream RandomStream { get; private set; }
 
         private StateMachine fsm;
 
@@ -44,7 +44,8 @@ namespace Pacmania.InGame
             GhostManager = FindObjectOfType<GhostManager>();
             ScoreSpawner = FindObjectOfType<ScoreSpawner>();
             CharacterManager = new CharacterManager();
-         
+            RandomStream = new SeedUniformRandomNumberStream(1);
+
             if (Arena == null)
             {
                 Debug.LogError("No arena found when starting level", this);
