@@ -1,18 +1,21 @@
-﻿
+﻿using System;
+
 namespace Pacmania.GameManagement
 {
+    [System.Serializable]
     public class HighScoreTableEntry
     {
+        public int Score;
+        public int Round;
+        public string Initials;
+
         public HighScoreTableEntry(int score, int round, string initials)
         {
             Score = score;
             Round = round;
             Initials = initials;
         }
-        public int Score { get; set; }
-
-        public int Round { get; set; }
-
+        
         public string RoundString
         {
             get
@@ -24,7 +27,5 @@ namespace Pacmania.GameManagement
                 return Round.ToString();
             }
         }
-    
-        public string Initials { get; set; }
     }
 }

@@ -106,6 +106,9 @@ namespace Pacmania.Menus
 
         private void EndScene()
         {
+            // Save out
+            Game.Instance.HighScoreTable.Save();
+
             // Hide pacman
             FindObjectOfType<PacmanController>().gameObject.SetActive(false);
 

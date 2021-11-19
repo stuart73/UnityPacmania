@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Pacmania.GameManagement
 {
@@ -24,7 +25,6 @@ namespace Pacmania.GameManagement
 
         public bool DoesGameSessionMakeTable(GameSession session)
         {
-            Game game = Game.Instance;
             for (int i = 0; i < Entries.Count; i++)
             {
                 int entryScore = Entries[i].Score;
@@ -43,6 +43,22 @@ namespace Pacmania.GameManagement
             }
 
             return false;
+        }
+
+        public void Save()
+        {
+            string jsonEntries = JsonUtility.ToJson(this);
+            PlayerPrefs.SetString("HiScore", jsonEntries);
+        }
+
+        public void Load()
+        {
+            string jsonEntries = PlayerPrefs.GetString("HiScore");
+            if (!string.IsNullOrEmpty(jsonEntries) )
+            {
+                HighScoreTable table = JsonUtility.FromJson<HighScoreTable>(jsonEntries);
+                Entries = table.Entries;
+            }
         }
     }
 }

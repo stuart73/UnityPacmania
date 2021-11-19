@@ -23,6 +23,8 @@ namespace Pacmania.GameManagement
             // By default we create a player game session. This allows us to play/test individual levels from the unity editor
             // as if we were in game and not in attact/demo mode.
             CreateNewPlayerGameSession();
+
+            HighScoreTable.Load();
         }
 
         public GameSession Player1Session { get; private set; }
