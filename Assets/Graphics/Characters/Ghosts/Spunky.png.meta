@@ -152,6 +152,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -161,8 +163,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -183,9 +185,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -1128,6 +1133,50 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      spunky_32: 1661483539678520866
+      spunky_34: -2036994254249094003
+      spunky_15: -8152617869894322737
+      spunky_11: 7827132394994302255
+      spunky_17: -7269628457480628962
+      spunky_24: -2792468553733164930
+      spunky_9: -5398337776437617475
+      spunky_35: -1440182524746512217
+      spunky_5: -7507789877165999755
+      spunky_10: 3383161778715121283
+      spunky_1: -6807940913612031072
+      spunky_31: -7205190216788324067
+      spunky_28: -8930418509026996949
+      spunky_42: 2117695732726365348
+      spunky_33: 6229718643515927462
+      spunky_2: 4982350746348466777
+      spunky_8: -7694926761758875665
+      spunky_14: 3595668365156972138
+      spunky_6: -965099176997877552
+      spunky_4: -2529690658629021942
+      spunky_40: 8561384360754650684
+      spunky_25: -4694864885776623994
+      spunky_26: 1196130406464692252
+      spunky_37: -3232632510871573846
+      spunky_36: -5440467733497255606
+      spunky_7: -1582150186552489472
+      spunky_12: 9219789022887746180
+      spunky_18: -2463445753459172833
+      spunky_16: -2208046727218817886
+      spunky_3: -2474242536421838188
+      spunky_19: 667070333610815090
+      spunky_21: 4092318411658293315
+      spunky_39: -6547021760115929856
+      spunky_13: -7535570849717197342
+      spunky_0: 9009300709646960828
+      spunky_29: 7028693240838608638
+      spunky_38: -4397875561981745965
+      spunky_30: 4205159190927131330
+      spunky_23: 7967546260987080593
+      spunky_27: -2261009766664802383
+      spunky_20: -5679971728450906674
+      spunky_41: -2194336298178522460
+      spunky_22: 3185663056637875821
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
