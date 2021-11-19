@@ -4,7 +4,6 @@ namespace Pacmania.InGame.Arenas
 {
     public class SandboxLand : Arena
     {
-        // Start is called before the first frame update
         private static readonly int[,] tiles = {
                      { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
                      { 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 4, 4, 4, 1, 1, 1, 4, 4, 4 },

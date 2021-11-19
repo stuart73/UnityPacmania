@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using Pacmania.InGame.Characters.Ghost.AI;
+using Pacmania.InGame.Characters.Pacman;
 
 namespace Pacmania.InGame.Characters.Ghost.GhostStates
 {
@@ -19,7 +20,9 @@ namespace Pacmania.InGame.Characters.Ghost.GhostStates
             ghostController = forGameObject.GetComponent<GhostController>();
             ghostAI = forGameObject.GetComponent<GhostAI>();
             level = ghostCharacterMovement.Level;
-            pacmanCharacterMovement = level.Pacman.GetComponent<CharacterMovement>();
+
+            // Level may be null (i.e. in intro cutscenes)
+            pacmanCharacterMovement = GameObject.FindObjectOfType<PacmanController>().GetComponent<CharacterMovement>();
         }
 
         public override Type Update(GameObject forGameObject)

@@ -15,7 +15,7 @@ namespace Pacmania.InGame.Characters.Ghost.AI
 
             Level level = FindObjectOfType<Level>();
 
-            // Maybe null when this script is used in cutscenes
+            // Maybe null when this script is used in cutscenes.
             if (level != null)
             {
                 level.Pacman.GetComponent<PacmanCollision>().EatenPellete += PacManCollision_EatenPellete;

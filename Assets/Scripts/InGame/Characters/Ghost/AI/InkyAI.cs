@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Pacmania.InGame.Characters;
 
 namespace Pacmania.InGame.Characters.Ghost.AI
 {
@@ -31,32 +30,22 @@ namespace Pacmania.InGame.Characters.Ghost.AI
         {
             Vector2Int pacmanTile = pacmanCharacterMovement.GetTileIn();
 
-            Vector2Int direction = new Vector2Int(0, 0);
-            if (pacmanCharacterMovement.CurrentDirection.x < 0)
-            {
-                direction.x = -1;
-            }
-            else if (pacmanCharacterMovement.CurrentDirection.x > 0)
-            {
-                direction.x = 1;
-            }
-            else if (pacmanCharacterMovement.CurrentDirection.y < 0)
-            {
-                direction.y = -1;
-            }
-            else if (pacmanCharacterMovement.CurrentDirection.y > 0)
-            {
-                direction.y = 1;
-            }
-
-            Vector2Int twoTilesInFrontOfPacman = pacmanTile + (direction * 2);
-
             if (blinkyMovement == null)
             {
+                // No blinky? just return pacman tile.
                 return pacmanTile;
             }
 
-            Vector2Int blinkyTile = characterMovement.GetTileIn();
+            // Chase position is a vector two tiles in front of pacman to blinky position and then rotating this vector 
+            // from pacman by 180 degrees. 
+            // Basically we get a target position that is near opposite to blinky compared to pacman. This has Inky
+            // trying to cut pacman's escape path off.
+
+            Vector3 currentPacManDirection = pacmanCharacterMovement.CurrentDirection;
+            Vector2Int direction = new Vector2Int((int)currentPacManDirection.x, (int)currentPacManDirection.y);
+            Vector2Int twoTilesInFrontOfPacman = pacmanTile + (direction * 2);
+
+            Vector2Int blinkyTile = blinkyMovement.GetTileIn();
             Vector2Int vectorToBlinky = blinkyTile - twoTilesInFrontOfPacman;
             Vector2Int chasePosition = twoTilesInFrontOfPacman - vectorToBlinky;
 

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Pacmania.InGame.Characters;
 using Pacmania.InGame.Characters.Pacman;
 
 namespace Pacmania.InGame.Characters.Ghost.AI

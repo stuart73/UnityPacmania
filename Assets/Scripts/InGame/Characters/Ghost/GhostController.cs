@@ -89,7 +89,7 @@ namespace Pacmania.InGame.Characters.Ghost
 
         public void ReverseDirectionDueToChase()
         {
-            if (Level?.GhostManager.GhostsChangeDirectionOnChase == true)
+            if (Level.GhostManager.GhostsChangeDirectionOnChase == true)
             {
                 ReverseDirection();
             }

@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Pacmania.InGame.Characters.Ghost.AI
 {
@@ -14,7 +13,5 @@ namespace Pacmania.InGame.Characters.Ghost.AI
         {
             return pacmanCharacterMovement.GetTileIn();
         }
-    }
-
-      
+    }     
 }
