@@ -8,7 +8,7 @@ Because this a Unity game, it can work on Windows, Mac, Linux and will soon be p
 ## How-to-setup
 This project requires:-
  
- - Unity (current version using 2021.2).
+ - Unity (current version uses 2021.2).
  
  - C# code editor (I used Visual Studio community 2019).
  
