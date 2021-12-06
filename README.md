@@ -52,6 +52,4 @@ Although this game is a near perfect clone of the arcade version, there are smal
 
 - Understanding the original arcade ghost AI was difficult, so I did a best approximation which worked well.  A lot of the AI is based on how the original pacman worked.  This is well documented online.
 
-- The Hi score table is currently not persistent.
-
 
