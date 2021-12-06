@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using System.Collections;
 using Pacmania.GameManagement;
-using Pacmania.Audio;
 
 namespace Pacmania.Menus
 {
@@ -28,36 +28,77 @@ namespace Pacmania.Menus
         private static readonly int[] courageBonus = { 0, 70000, 150000, 300000 };
         private int flickerCount = 0;
         private bool worldSelected = false;
+        private bool waitforChange = false;
+        private const float worldChangeTimeStep = 0.2f;
 
-        private void Update()
+        public void OnMovement(InputAction.CallbackContext value)
         {
-            PlayerGameSession gameSession = Game.Instance.CurrentSession as PlayerGameSession;
-
-            if (gameSession == null)
+            if (worldSelected == true)
             {
-                Debug.LogError("Game session not a PlayerGameSession in select world screen", this);
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.DownArrow) && worldSelected == false )
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+
+            if (inputMovement.y == 0)
+            {
+                waitforChange = false;
+            }
+
+            CheckInput(inputMovement);
+        }
+
+        public void OnMovementSwipe(InputAction.CallbackContext value)
+        {
+            if (worldSelected == true || waitforChange == true)
+            {
+                return;
+            }
+
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+
+            CheckInput(inputMovement);
+
+            if (waitforChange == true)
+            {
+                IEnumerator fader = Wait();
+                StartCoroutine(fader);
+            }
+        }
+
+        private void CheckInput(Vector2 inputMovement)
+        {
+            if (inputMovement.y < 0 && waitforChange == false)
             {
                 currentSelectIndex++;
                 if (currentSelectIndex > 3) currentSelectIndex = 0;
+                waitforChange = true;
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow) && worldSelected == false)
+            else if (inputMovement.y > 0 && waitforChange == false)
             {
                 currentSelectIndex--;
-                if (currentSelectIndex < 0) currentSelectIndex = 3;         
-            }
-            else if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
-            {
-                gameSession.CurrentLevel = selectIndexToStartWorld[currentSelectIndex];
-                gameSession.StartedGameOnLevel = gameSession.CurrentLevel;
-                gameSession.CourageBonus = courageBonus[currentSelectIndex];
-                worldSelected = true;
-                StartCoroutine(Startlevel());
+                if (currentSelectIndex < 0) currentSelectIndex = 3;
+                waitforChange = true;
             }
         }
+
+        private IEnumerator Wait()
+        {
+            yield return new WaitForSeconds(worldChangeTimeStep);
+            waitforChange = false;
+        }
+
+        public void OnInputTrigger()
+        {
+            PlayerGameSession gameSession = Game.Instance.CurrentSession as PlayerGameSession;
+
+            gameSession.CurrentLevel = selectIndexToStartWorld[currentSelectIndex];
+            gameSession.StartedGameOnLevel = gameSession.CurrentLevel;
+            gameSession.CourageBonus = courageBonus[currentSelectIndex];
+            worldSelected = true;
+            StartCoroutine(Startlevel());
+        }
+
         private IEnumerator Startlevel()
         {
             yield return new WaitForSeconds(1.0f);

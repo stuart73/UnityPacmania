@@ -33,13 +33,11 @@ namespace Pacmania.Menus
             StartCoroutine(WaitCoroutine());
 
         }
-        private void Update()
+        public void OnInputTrigger()
         {
-            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0))
-            {
-                (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
-            }
+            (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
         }
+
         private IEnumerator WaitCoroutine()
         {
             yield return new WaitForSeconds(4);

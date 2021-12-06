@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using Pacmania.Audio;
 using Pacmania.Utilities.Record;
 using Pacmania.GameManagement;
@@ -63,23 +65,45 @@ namespace Pacmania.InGame.Characters.Pacman
             characterMovement.SetInitialPosition(startPosition);
         }
 
-        void Update()
+        public void OnJump()
         {
-            float inputHorizontal = Input.GetAxis("Horizontal");
-            float inputVertical = Input.GetAxis("Vertical");
-
-            desiredDirection = new Vector2(inputHorizontal, -inputVertical);  // y axis is reversed
-
-            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) )
+            GameSession currentSession = Game.Instance.CurrentSession;
+            if (currentSession is DemoGameSession demoGameSession)
             {
-                GameSession currentSession = Game.Instance.CurrentSession;
-                if (currentSession is DemoGameSession demoGameSession)
-                {
-                    demoGameSession.StartPlayerGame();
-                    return;
-                }
-                selectedJump = true;
+                demoGameSession.StartPlayerGame();
+                return;
             }
+            selectedJump = true;
+        }
+
+        public void OnMovement(InputAction.CallbackContext value)
+        {
+            //keyboard and joystick movement (input is digital un-normalised)
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+            desiredDirection = new Vector2Int((int)inputMovement.x, -(int)inputMovement.y); // y axis is reversed
+        }
+
+        public void OnMovementSwipe(InputAction.CallbackContext value)
+        {
+            // Touchscreen (input is analogue)
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+
+            if (inputMovement.y == 0 && inputMovement.x == 0)
+            {
+                return;
+            }
+
+            if (Math.Abs(inputMovement.x) > Math.Abs(inputMovement.y))
+            {
+                inputMovement.y = 0;
+            }
+            else
+            {
+                inputMovement.x = 0;
+            }
+
+            inputMovement.Normalize();
+            desiredDirection = new Vector2Int((int)inputMovement.x, -(int)inputMovement.y); // y axis is reversed
         }
 
         private void FixedUpdate()
@@ -100,6 +124,8 @@ namespace Pacmania.InGame.Characters.Pacman
                 if (selectedJump == true)
                 {
                     GetComponent<Jumping>().Jump();
+
+                    selectedJump = false;
                 }
 
                 characterMovement.Move(desiredDirection);
@@ -110,7 +136,6 @@ namespace Pacmania.InGame.Characters.Pacman
                     record.RecordFixedUpdate(desiredDirection, selectedJump);
                 }
 
-                selectedJump = false;
             }
 
             if (characterMovement.Paused == false)

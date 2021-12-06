@@ -17,9 +17,7 @@ namespace Pacmania.Menus
                 Game.Instance.CreateNewDemoGameSession(1);
             }
 
-         //   Camera.main.rect = new Rect(0, 0.125f, 1, 0.75f);
-
-              StartCoroutine(WaitCoroutine());
+            StartCoroutine(WaitCoroutine());
         }
 
         private IEnumerator WaitCoroutine()
@@ -28,12 +26,9 @@ namespace Pacmania.Menus
             Game.Instance.CurrentSession.StartNextScene() ;
         }
 
-        private void Update()
+        public void OnInputTrigger()
         {
-            if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) == true)
-            {
-                (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
-            }
+            (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
         }      
     }
 }

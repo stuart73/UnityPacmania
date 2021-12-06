@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using System.Collections;
 using Pacmania.GameManagement;
 using Pacmania.Audio;
 using Pacmania.InGame.Characters.Pacman;
 using Pacmania.InGame.UI;
+
 
 namespace Pacmania.Menus
 {
@@ -42,28 +44,31 @@ namespace Pacmania.Menus
             roundText.text = newEntry.RoundString;
         }
 
-        private void Update()
+        public void OnMovement(InputAction.CallbackContext value)
         {
+            Vector2 inputMovement = value.ReadValue<Vector2>();
+
             if (currentInitialIndex >=3)
             {
                 return;
             }
-            if (Input.GetKey(KeyCode.DownArrow) && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
+            if (inputMovement.y < 0 && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
             {
                 MoveToPreviousCharacer();
             }
-            else if (Input.GetKey(KeyCode.UpArrow) && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
+            else if (inputMovement.y > 0 && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
             {
                 MoveToNextCharacter();
             }
-            else if (Input.GetKeyDown("space") || Input.GetMouseButtonDown(0) )
+        }
+
+        public void OnInputTrigger()
+        {
+            RememberInitialAndMoveToNextCharacter();
+            if (currentInitialIndex >= 3)
             {
-                RememberInitialAndMoveToNextCharacter();
-                if (currentInitialIndex >= 3)
-                {
-                    CopyInitialsIntoHighScoreTable();
-                    EndScene();
-                }
+                CopyInitialsIntoHighScoreTable();
+                EndScene();
             }
         }
 

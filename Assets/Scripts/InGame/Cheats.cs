@@ -13,28 +13,10 @@ namespace Pacmania.InGame
             level = FindObjectOfType<Level>();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F1))
-            {
-                level.Pacman.GetComponent<PacmanCollision>().Invincible = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.F2))
-            {
-                level.Pacman.GetComponent<PacmanCollision>().Invincible = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.F3))
-            {
-                Game.Instance.CurrentSession.InfiniteLives = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.F4))
-            {
-                Game.Instance.CurrentSession.InfiniteLives = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.F5))
-            {
-                level.WinLevel();
-            }
-        }
+        public void OnInvincibleOn() => level.Pacman.GetComponent<PacmanCollision>().Invincible = true;
+        public void OnInvincibleOff() => level.Pacman.GetComponent<PacmanCollision>().Invincible = false;
+        public void OnInfiniteLivesOn() => Game.Instance.CurrentSession.InfiniteLives = true;
+        public void OnInfiniteLivesOff() => Game.Instance.CurrentSession.InfiniteLives = false;
+        public void OnEndLevelNow() => level.WinLevel();
     }
 }

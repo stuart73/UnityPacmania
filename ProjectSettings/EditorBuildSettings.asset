@@ -92,4 +92,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Cutscenes/CreditsScreen.unity
     guid: 5c6452be7abe4034aab33ea8c7b0dbd8
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 3e9c3575842f8694a9f558a247fbc3a3,
+      type: 2}
