@@ -57,13 +57,7 @@ namespace Pacmania.InGame.Characters.Ghost
             characterMovement.SetInitialPosition(startPosition);
 
             // Create our ghost state machine, and start in scatter state.
-            List<BaseState> states = new List<BaseState>();
-            states.Add(new ScatterState());
-            states.Add(new EatenState());
-            states.Add(new FrightenState());
-            states.Add(new ChassingState());
-            states.Add(new RegenerateState());
-            states.Add(new ConfusedState());
+            List<BaseState> states = new List<BaseState>() { new ScatterState(), new EatenState(), new FrightenState(), new ChassingState(), new RegenerateState(), new ConfusedState() };
             FSM = new StateMachine(gameObject, states);
         }
 

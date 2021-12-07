@@ -105,13 +105,7 @@ namespace Pacmania.InGame
 
         private void GeneranteFSM()
         {
-            List<BaseState> states = new List<BaseState>();
-            states.Add(new GetReadyState());
-            states.Add(new EatenPauseState());
-            states.Add(new PlayingState());
-            states.Add(new DyingState());
-            states.Add(new WinState());
-            states.Add(new GameOverState());
+            List<BaseState> states = new List<BaseState>() { new GetReadyState(), new EatenPauseState(), new PlayingState(), new DyingState(), new WinState(), new GameOverState() };
             fsm = new StateMachine(gameObject, states);
         }
 
