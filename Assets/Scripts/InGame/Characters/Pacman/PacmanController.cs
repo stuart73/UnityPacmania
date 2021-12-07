@@ -65,8 +65,10 @@ namespace Pacmania.InGame.Characters.Pacman
             characterMovement.SetInitialPosition(startPosition);
         }
 
-        public void OnJump()
+        public void OnJump(InputAction.CallbackContext value)
         {
+            if (!value.started) return;
+
             GameSession currentSession = Game.Instance.CurrentSession;
             if (currentSession is DemoGameSession demoGameSession)
             {
@@ -78,6 +80,7 @@ namespace Pacmania.InGame.Characters.Pacman
 
         public void OnMovement(InputAction.CallbackContext value)
         {
+            if (!value.performed) return;
             //keyboard and joystick movement (input is digital un-normalised)
             Vector2 inputMovement = value.ReadValue<Vector2>();
             desiredDirection = new Vector2Int((int)inputMovement.x, -(int)inputMovement.y); // y axis is reversed

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections;
 using Pacmania.GameManagement;
 
@@ -26,8 +27,9 @@ namespace Pacmania.Menus
             Game.Instance.CurrentSession.StartNextScene() ;
         }
 
-        public void OnInputTrigger()
+        public void OnInputTrigger(InputAction.CallbackContext value)
         {
+            if (!value.started) return;
             (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
         }      
     }

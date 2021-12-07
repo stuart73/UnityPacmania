@@ -46,12 +46,14 @@ namespace Pacmania.Menus
 
         public void OnMovement(InputAction.CallbackContext value)
         {
+            if (!value.started) return;
             Vector2 inputMovement = value.ReadValue<Vector2>();
 
             if (currentInitialIndex >=3)
             {
                 return;
             }
+
             if (inputMovement.y < 0 && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
             {
                 MoveToPreviousCharacer();
@@ -62,8 +64,10 @@ namespace Pacmania.Menus
             }
         }
 
-        public void OnInputTrigger()
+        public void OnInputTrigger(InputAction.CallbackContext value)
         {
+            if (!value.started) return;
+
             RememberInitialAndMoveToNextCharacter();
             if (currentInitialIndex >= 3)
             {

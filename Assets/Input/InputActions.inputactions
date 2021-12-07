@@ -92,7 +92,7 @@
                 {
                     "name": "Joystick",
                     "id": "dbf815fe-02a0-4050-9d7b-5b0faeebcccb",
-                    "path": "2DVector",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -159,7 +159,7 @@
                     "name": "",
                     "id": "4566301f-eac7-4ab3-8c72-55359411da22",
                     "path": "<Joystick>/trigger",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",

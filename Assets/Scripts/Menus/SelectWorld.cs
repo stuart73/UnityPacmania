@@ -33,17 +33,12 @@ namespace Pacmania.Menus
 
         public void OnMovement(InputAction.CallbackContext value)
         {
-            if (worldSelected == true)
+            if (!value.started || worldSelected == true)
             {
                 return;
             }
 
             Vector2 inputMovement = value.ReadValue<Vector2>();
-
-            if (inputMovement.y == 0)
-            {
-                waitforChange = false;
-            }
 
             CheckInput(inputMovement);
         }
@@ -68,17 +63,15 @@ namespace Pacmania.Menus
 
         private void CheckInput(Vector2 inputMovement)
         {
-            if (inputMovement.y < 0 && waitforChange == false)
+            if (inputMovement.y < 0)
             {
                 currentSelectIndex++;
                 if (currentSelectIndex > 3) currentSelectIndex = 0;
-                waitforChange = true;
             }
-            else if (inputMovement.y > 0 && waitforChange == false)
+            else if (inputMovement.y > 0)
             {
                 currentSelectIndex--;
                 if (currentSelectIndex < 0) currentSelectIndex = 3;
-                waitforChange = true;
             }
         }
 
@@ -88,8 +81,10 @@ namespace Pacmania.Menus
             waitforChange = false;
         }
 
-        public void OnInputTrigger()
+        public void OnInputTrigger(InputAction.CallbackContext value)
         {
+            if (!value.started || worldSelected == true) return;
+
             PlayerGameSession gameSession = Game.Instance.CurrentSession as PlayerGameSession;
 
             gameSession.CurrentLevel = selectIndexToStartWorld[currentSelectIndex];

@@ -547,7 +547,7 @@ MonoBehaviour:
       - m_Target: {fileID: 438504433}
         m_TargetAssemblyTypeName: Pacmania.Menus.EnterInitials, Assembly-CSharp
         m_MethodName: OnInputTrigger
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

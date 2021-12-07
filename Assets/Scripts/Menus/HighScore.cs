@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Pacmania.GameManagement;
 
 namespace Pacmania.Menus
@@ -33,8 +34,9 @@ namespace Pacmania.Menus
             StartCoroutine(WaitCoroutine());
 
         }
-        public void OnInputTrigger()
+        public void OnInputTrigger(InputAction.CallbackContext value)
         {
+            if (!value.started) return;
             (Game.Instance.CurrentSession as DemoGameSession)?.StartPlayerGame();
         }
 
