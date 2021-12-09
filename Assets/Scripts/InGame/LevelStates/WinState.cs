@@ -4,7 +4,6 @@ using Pacmania.Audio;
 using Pacmania.Utilities.Sprites;
 using Pacmania.Utilities.StateMachines;
 using Pacmania.GameManagement;
-using Pacmania.InGame.Characters.Ghost;
 
 namespace Pacmania.InGame.LevelStates
 {
@@ -14,6 +13,7 @@ namespace Pacmania.InGame.LevelStates
         private const int secondsInWinningState = 2;
         private int bonusStep = 0;
         private const int bonusStepDivider = 100;
+        private int lastRenderframe = -1;
 
         public override void OnStateEnter(GameObject forGameObject)
         {
@@ -44,15 +44,21 @@ namespace Pacmania.InGame.LevelStates
 
             Level level = forGameObject.GetComponent<Level>();
 
-            // Alternate each frame with greyed out effect (makes is flash).
-            GreyoutSprite arneaGreyoutSpriteComponent = level.Arena.GetComponent<GreyoutSprite>();       
-            if ((frame % 2) == 0)
+            // Alternate each render frame with greyed out effect (makes is flash).
+            GreyoutSprite arneaGreyoutSpriteComponent = level.Arena.GetComponent<GreyoutSprite>();
+
+            int renderFrame = Time.frameCount;
+            if (renderFrame != lastRenderframe)
             {
-                arneaGreyoutSpriteComponent.DisableGrey();
-            }
-            else
-            {
-                arneaGreyoutSpriteComponent.EnableGrey();
+                lastRenderframe = renderFrame;
+                if (arneaGreyoutSpriteComponent.UsingGreyMateria == true)
+                {
+                    arneaGreyoutSpriteComponent.DisableGrey();
+                }
+                else
+                {
+                    arneaGreyoutSpriteComponent.EnableGrey();
+                }
             }
 
             if (Game.Instance.CurrentSession is PlayerGameSession session && session.CourageBonus > 0)
@@ -62,8 +68,10 @@ namespace Pacmania.InGame.LevelStates
             }
             else if (frame >= Game.FramesPerSecond * secondsInWinningState)
             {
+                arneaGreyoutSpriteComponent.DisableGrey();
                 // This will end the scene and start the next level if there is one.
                 Game.Instance.CurrentSession.CompletedLevel();
+                return typeof(EndState);
             }
 
             return GetType();

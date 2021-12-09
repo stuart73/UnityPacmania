@@ -83,7 +83,7 @@ namespace Pacmania.InGame.LevelStates
             if (gameSession is DemoGameSession)
             {
                 gameSession.GameOver();
-                return GetType();
+                return typeof(EndState);
             }
 
             return typeof(GameOverState);

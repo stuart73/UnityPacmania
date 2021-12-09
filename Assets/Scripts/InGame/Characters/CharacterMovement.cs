@@ -39,6 +39,7 @@ namespace Pacmania.InGame.Characters
         private Vector2 initialDirection;
         private Jumping jumpingComponent;
         private const float maxSpeed = 2.0f;
+        private SpriteRenderer spriteRenderer;
 
         void Awake()
         {
@@ -52,6 +53,8 @@ namespace Pacmania.InGame.Characters
             {
                 defaultSpeed += (speedIncreasePerLevel * (Level.LevelNumber - 1));
             }
+
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         public void SetInitialPosition(Vector3 position)
@@ -85,7 +88,7 @@ namespace Pacmania.InGame.Characters
 
             if (Arena != null)
             {
-                GetComponent<SpriteRenderer>().sortingOrder = Arena.GetOrder(this.GetTileIn());
+                spriteRenderer.sortingOrder = Arena.GetOrder(this.GetTileIn());
             }
         }
 

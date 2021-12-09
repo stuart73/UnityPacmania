@@ -7,6 +7,7 @@ namespace Pacmania.Utilities.Sprites
     {
         [SerializeField] private Material greyMaterial = default;
         private Material defaultMaterial;
+        public bool UsingGreyMateria { get; private set; } = false;
         
         private void Awake()
         {
@@ -20,12 +21,14 @@ namespace Pacmania.Utilities.Sprites
         {
             if (enabled == false) return;
             ApplyMeterial(greyMaterial);
+            UsingGreyMateria = true;
         }
 
         public void DisableGrey()
         {
             if (enabled == false) return;
             ApplyMeterial(defaultMaterial);
+            UsingGreyMateria = false;
         }
 
         private void ApplyMeterial(Material material)

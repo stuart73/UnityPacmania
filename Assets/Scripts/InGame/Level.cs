@@ -105,7 +105,7 @@ namespace Pacmania.InGame
 
         private void GeneranteFSM()
         {
-            List<BaseState> states = new List<BaseState>() { new GetReadyState(), new EatenPauseState(), new PlayingState(), new DyingState(), new WinState(), new GameOverState() };
+            List<BaseState> states = new List<BaseState>() { new GetReadyState(), new EatenPauseState(), new PlayingState(), new DyingState(), new WinState(), new GameOverState(), new EndState() };
             fsm = new StateMachine(gameObject, states);
         }
 
@@ -125,7 +125,7 @@ namespace Pacmania.InGame
 
             if (containsPellete == false && containsPowerPellete == false)
             {
-                fsm.SetState(typeof(WinState));
+                WinLevel();
             }
         }
 
@@ -134,10 +134,14 @@ namespace Pacmania.InGame
             fsm.SetState(typeof(DyingState));
         }
 
-        // Cheat method
+        // Can also be called from cheat script.
         public void WinLevel()
         {
-            fsm.SetState(typeof(WinState));
+            System.Type state = fsm.CurrrentState.GetType();
+            if (state != typeof(EndState) && state != typeof(WinState) )
+            {
+                fsm.SetState(typeof(WinState));
+            }
         }
     }
 }

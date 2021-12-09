@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 8ba8908c49df08641a10909127690714,
+  m_Actions: {fileID: -944628639613478452, guid: 2ea150eed6953194c8cbf68cc4ee0d84,
     type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
@@ -72,37 +72,15 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2253629077517454778}
-        m_TargetAssemblyTypeName: Pacmania.InGame.Cheats, Assembly-CSharp
-        m_MethodName: OnInvincibleOn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 11562b69-404a-451d-b308-54524fe48865
-    m_ActionName: Cheats/InvincibleOn[/Keyboard/f1]
+      m_Calls: []
+    m_ActionId: 384f8b38-a605-4b89-8ef6-bd50ed1ee420
+    m_ActionName: Player controls/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/GIC
+      USB Joystick/stick/up,/GIC USB Joystick/stick/down,/GIC USB Joystick/stick/left,/GIC
+      USB Joystick/stick/right]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2253629077517454778}
-        m_TargetAssemblyTypeName: Pacmania.InGame.Cheats, Assembly-CSharp
-        m_MethodName: OnInvincibleOff
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 67211b89-5d25-4848-9f18-d2333ee645a6
-    m_ActionName: Cheats/InvincibleOff[/Keyboard/f2]
+      m_Calls: []
+    m_ActionId: 0dab9ecc-5c1c-4b2a-89bf-26e9c19e7248
+    m_ActionName: Player controls/Jump[/Keyboard/space,/GIC USB Joystick/trigger]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2253629077517454778}
@@ -117,8 +95,44 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 17610812-f0da-4ada-bc2d-fdc254f16f3b
-    m_ActionName: Cheats/InfiniteLivesOn[/Keyboard/f3]
+    m_ActionId: 3c540e99-2c90-4ffa-bd88-0b57c8b95a82
+    m_ActionName: Cheats/Infinite lives[/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2253629077517454778}
+        m_TargetAssemblyTypeName: Pacmania.InGame.Cheats, Assembly-CSharp
+        m_MethodName: OnInvincibleOn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f5800054-63a2-4dc1-a2cc-c259f7de2748
+    m_ActionName: Cheats/Invincible on[/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 39574317-9f48-447c-a8de-f150fc35cf58
+    m_ActionName: Player controls/MovementSwipe
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2253629077517454778}
+        m_TargetAssemblyTypeName: Pacmania.InGame.Cheats, Assembly-CSharp
+        m_MethodName: OnInvincibleOff
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e0527538-3a70-461e-8299-63808d3edfc9
+    m_ActionName: Cheats/Invincible off[/Keyboard/f2]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2253629077517454778}
@@ -133,8 +147,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 5bfc63f9-64d0-4954-87ff-83ca23e78a69
-    m_ActionName: Cheats/InfiniteLivesOff[/Keyboard/f4]
+    m_ActionId: c926255b-dfa6-4b74-970a-82296ee730c5
+    m_ActionName: Cheats/Infinite lives off[/Keyboard/f4]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2253629077517454778}
@@ -149,30 +163,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 91c0492e-d27c-4fbe-9798-3af9d7f4a20c
-    m_ActionName: Cheats/EndLevelNow[/Keyboard/f5]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3b3214fe-99b9-4f06-a119-9cb807338395
-    m_ActionName: Player controls/Jump[/Keyboard/space,/GIC USB Joystick/button3]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f7f7c8f9-ca1f-41f7-a01f-ef611d7306ed
-    m_ActionName: Player controls/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/GIC
-      USB Joystick/stick/up,/GIC USB Joystick/stick/down,/GIC USB Joystick/stick/left,/GIC
-      USB Joystick/stick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a6856064-b6af-48a0-a72e-ab78285d6e4f
-    m_ActionName: Menu/MenuUp[/Keyboard/upArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: eb3e8be6-0d6b-4845-ad39-00067f7663a8
-    m_ActionName: Menu/MenuDown[/Keyboard/downArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: af7915da-19b7-43bd-917d-b9e9ff029912
-    m_ActionName: Menu/Trigger[/Keyboard/space]
+    m_ActionId: ed541fbb-2b04-478c-99aa-88eea42444d9
+    m_ActionName: Cheats/End level now[/Keyboard/f5]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Cheats

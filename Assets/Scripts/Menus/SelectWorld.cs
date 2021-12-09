@@ -26,10 +26,19 @@ namespace Pacmania.Menus
         private int currentSelectIndex = 0;
         private static readonly int[] selectIndexToStartWorld = { 1, 2, 4, 6 };
         private static readonly int[] courageBonus = { 0, 70000, 150000, 300000 };
-        private int flickerCount = 0;
         private bool worldSelected = false;
-        private bool waitforChange = false;
-        private const float worldChangeTimeStep = 0.2f;
+        private int lastRenderFrame = -1;
+        private bool flickerOn = false;
+        private int numberOfFramesBetweenChange = 20;
+        private int allowChangeCount = 0;
+
+        private void Awake()
+        {
+            if (Application.platform != RuntimePlatform.Android)
+            {
+                numberOfFramesBetweenChange = 0;
+            }
+        }
 
         public void OnMovement(InputAction.CallbackContext value)
         {
@@ -40,45 +49,39 @@ namespace Pacmania.Menus
 
             Vector2 inputMovement = value.ReadValue<Vector2>();
 
-            CheckInput(inputMovement);
-        }
-
-        public void OnMovementSwipe(InputAction.CallbackContext value)
-        {
-            if (worldSelected == true || waitforChange == true)
-            {
-                return;
-            }
-
-            Vector2 inputMovement = value.ReadValue<Vector2>();
-
-            CheckInput(inputMovement);
-
-            if (waitforChange == true)
-            {
-                IEnumerator fader = Wait();
-                StartCoroutine(fader);
-            }
-        }
-
-        private void CheckInput(Vector2 inputMovement)
-        {
-            if (inputMovement.y < 0)
+            if (inputMovement.y < 0 && allowChangeCount >= numberOfFramesBetweenChange)
             {
                 currentSelectIndex++;
-                if (currentSelectIndex > 3) currentSelectIndex = 0;
+                if (currentSelectIndex > 3)
+                {
+                    if (Application.platform != RuntimePlatform.Android)
+                    {
+                        currentSelectIndex = 0;
+                    }
+                    else
+                    {
+                        currentSelectIndex = 3;
+                    }
+                }
+                allowChangeCount = 0;
             }
-            else if (inputMovement.y > 0)
+            else if (inputMovement.y > 0 && allowChangeCount >= numberOfFramesBetweenChange)
             {
                 currentSelectIndex--;
-                if (currentSelectIndex < 0) currentSelectIndex = 3;
-            }
-        }
 
-        private IEnumerator Wait()
-        {
-            yield return new WaitForSeconds(worldChangeTimeStep);
-            waitforChange = false;
+                if (currentSelectIndex < 0)
+                {
+                    if (Application.platform != RuntimePlatform.Android)
+                    {
+                        currentSelectIndex = 3;
+                    }
+                    else
+                    {
+                        currentSelectIndex = 0;
+                    }
+                }
+                allowChangeCount = 0;
+            }
         }
 
         public void OnInputTrigger(InputAction.CallbackContext value)
@@ -97,17 +100,26 @@ namespace Pacmania.Menus
         private IEnumerator Startlevel()
         {
             yield return new WaitForSeconds(1.0f);
-            Game.Instance.CurrentSession.StartNextScene();
+            HighlightSelected();
+            Game.Instance.CurrentSession.StartNextScene();       
         }
+
         private void FixedUpdate()
         {
-            flickerCount++;
             ClearSelected();
+         
+            int renderFrame = Time.frameCount;
+            if (renderFrame != lastRenderFrame)
+            {
+                lastRenderFrame = renderFrame;
+                flickerOn = !flickerOn;
+            }
 
-            if (worldSelected == false || (flickerCount % 2) == 0)
+            if (worldSelected == false || flickerOn)
             {
                 HighlightSelected();
             }
+            allowChangeCount++;
         }
         private void ClearSelected()
         {

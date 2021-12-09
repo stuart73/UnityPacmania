@@ -22,7 +22,7 @@ namespace Pacmania.Menus
 
         private const int startCharIndex = 5;
         private const int secondsDoingEndFadeOut = 4;
-        private const int numberOfFramesBetweenCharacterChange = 10;
+        private int numberOfFramesBetweenCharacterChange = 10;
 
         private static char[] chars = new char[] { ' ', ',', '!', '&', (char)39, '.', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                                              'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -30,6 +30,14 @@ namespace Pacmania.Menus
         private int currentInitialIndex = 0;
         private int flashCount = 0;
         private int allowInitialChangeCount = 0;
+
+        private void Awake()
+        {
+            if (Application.platform != RuntimePlatform.Android)
+            {
+                numberOfFramesBetweenCharacterChange = 0;
+            }
+        }
 
         private void Start()
         {
@@ -47,12 +55,13 @@ namespace Pacmania.Menus
         public void OnMovement(InputAction.CallbackContext value)
         {
             if (!value.started) return;
-            Vector2 inputMovement = value.ReadValue<Vector2>();
-
+         
             if (currentInitialIndex >=3)
             {
                 return;
             }
+
+            Vector2 inputMovement = value.ReadValue<Vector2>();
 
             if (inputMovement.y < 0 && allowInitialChangeCount >= numberOfFramesBetweenCharacterChange)
             {

@@ -34,6 +34,7 @@ namespace Pacmania.InGame.LevelStates
             if (frame >= Game.FramesPerSecond * secondsInGameOverState)
             {
                 Game.Instance.CurrentSession.GameOver();
+                return typeof(EndState);
             }
             return GetType();
         }

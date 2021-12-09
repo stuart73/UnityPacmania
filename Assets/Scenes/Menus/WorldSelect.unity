@@ -984,7 +984,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1239057492}
         m_TargetAssemblyTypeName: Pacmania.Menus.SelectWorld, Assembly-CSharp
-        m_MethodName: OnMovementSwipe
+        m_MethodName: OnMovement
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
