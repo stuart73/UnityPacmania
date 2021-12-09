@@ -1,7 +1,7 @@
 # UnityPacmania
-A clone of the arcade game Pacmania done in the Unity game engine.  This version includes all levels, cut-screens and menus.
+A near perfect clone of the arcade game Pacmania done in the Unity game engine.  This version includes all levels, cut-screens and menus.
 
-Because this a Unity game, it can work on Windows, Mac, Linux and will soon be playable on Android and iOS.  I’ve only tested this on Windows and Android so far.
+Because this a Unity game, it can work on Windows, Mac, Linux and Mobile.  I’ve only tested this on Windows and Android so far.
 
 ![App Screenshot](https://www.photovidshow.com/pacmania/pacmania.jpg)
 
@@ -19,9 +19,9 @@ This project requires:-
 Once the project is loaded into Unity, either 'Build and Run' the game or to play the game in the Unity editor, select the 'Scenes' and then 'Menus' folder and then load the 'Logo' scene.  This is the game’s initial scene.  Alternatively you can play any level by loaded the desired scene which starts with the name ‘level’.
 
 ## Playing the game
-Currently this game only works on keyboard with the arrow keys used to move pacman and the spacebar to jump.
+To control on keyboard use the arrow keys and the spacebar to jump.  Joystick support is also done.  For mobile use swipe and tap actions.
 
-To start a new game press the spacebar.
+To start a new game press the spacebar, joystick trigger button or tap the screen for mobile.
 
 Other keys (when in game):-
   f1 = Invincible on.
