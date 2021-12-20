@@ -18,6 +18,7 @@ namespace Pacmania.InGame.Characters.Pacman
         private Vector2 desiredDirection;
         private bool selectedJump = false;
         private Level level;
+        private RandomMovement randomMovement;  // used for demo scenes
 
         private void Awake()
         {
@@ -25,10 +26,11 @@ namespace Pacmania.InGame.Characters.Pacman
             animator = GetComponent<Animator>();
             pacmanCollision = GetComponent<PacmanCollision>();
             level = FindObjectOfType<Level>();
+            randomMovement = GetComponent<RandomMovement>();
 
-            if (Game.Instance.CurrentSession is DemoGameSession)
+            if (Game.Instance.CurrentSession is DemoGameSession && randomMovement != null)
             {
-                this.gameObject.AddComponent<PlaybackKeyboard>();
+                randomMovement.enabled = true;
             }
         }
 
@@ -39,13 +41,8 @@ namespace Pacmania.InGame.Characters.Pacman
             animator.SetFloat(CharacterAnimatorParameterNames.Vertical, 0);
             SetShadowVisible(false);
             level.AudioManager.Play(SoundType.DieSpin);
-
-            RecordKeyboard record = GetComponent<RecordKeyboard>();
-            if (record != null)
-            {
-                record.Print();
-            }
         }
+
         public void StopSpinAnimation()
         {
             animator.SetBool(CharacterAnimatorParameterNames.Dying, false);
@@ -111,35 +108,22 @@ namespace Pacmania.InGame.Characters.Pacman
 
         private void FixedUpdate()
         { 
-            PlaybackKeyboard playback = GetComponent<PlaybackKeyboard>();
-            if (playback != null && playback.enabled == true)
+            if (randomMovement != null && randomMovement.enabled == true)
             {
-                RecordKeyboard.KeyboardSnapshot snapshot = playback.GetNextFixedUpdateSnapshot();
+                randomMovement.Next(characterMovement.CurrentDirection, out bool jump, out Vector2 movement);
 
-                characterMovement.Move(snapshot.direction);
-                if (snapshot.jump == true)
-                {
-                    GetComponent<Jumping>().Jump();
-                }
+                selectedJump = jump;
+                desiredDirection = movement;
             }
-            else
+
+            if (selectedJump == true)
             {
-                if (selectedJump == true)
-                {
-                    GetComponent<Jumping>().Jump();
+                GetComponent<Jumping>().Jump();
 
-                    selectedJump = false;
-                }
-
-                characterMovement.Move(desiredDirection);
-
-                RecordKeyboard record = GetComponent<RecordKeyboard>();
-                if (record != null)
-                {
-                    record.RecordFixedUpdate(desiredDirection, selectedJump);
-                }
-
+                selectedJump = false;
             }
+
+            characterMovement.Move(desiredDirection);
 
             if (characterMovement.Paused == false)
             {

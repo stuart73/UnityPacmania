@@ -362,6 +362,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pacman
       objectReference: {fileID: 0}
+    - target: {fileID: 2375347434392152794, guid: 960ba1fa86aee4645ac1a4dd89ce1037,
+        type: 3}
+      propertyPath: randomMovementSeed
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2375347434392152795, guid: 960ba1fa86aee4645ac1a4dd89ce1037,
         type: 3}
       propertyPath: m_RootOrder
@@ -663,6 +668,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &831884520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2375347434392152790, guid: 960ba1fa86aee4645ac1a4dd89ce1037,
+    type: 3}
+  m_PrefabInstance: {fileID: 278240755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &831884530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831884520}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25559ae2a6ec36744873fb4f77024c8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 35
 --- !u!1001 &941780723
 PrefabInstance:
   m_ObjectHideFlags: 0

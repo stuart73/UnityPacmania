@@ -24,7 +24,6 @@ namespace Pacmania.InGame.Arenas
             get { return music; }
         }
      
-        public virtual RecordKeyboard.KeyboardSnapshot[] DemoSteps { get { return null; } }
         public Vector2Int PacmanStartTile { get; protected set; }
         public Vector2Int BonusTile { get; protected set; }
         public Vector2Int NestTile { get; protected set; }

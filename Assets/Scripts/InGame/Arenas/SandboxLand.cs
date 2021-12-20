@@ -61,7 +61,6 @@ namespace Pacmania.InGame.Arenas
             TileHeightPixels = 28;
             pixelArtTileAspect = 32.0f / 24.0f;
             base.Awake();
-
         }
 
         protected override int[,] TileTypeMap

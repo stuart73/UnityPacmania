@@ -231,8 +231,6 @@ namespace Pacmania.InGame.Characters.Ghost
 #endif
         }
 
-     
-
         public void SetVisible(bool value)
         {
             SpriteRenderer[] sprites = gameObject.GetComponentsInChildren<SpriteRenderer>();

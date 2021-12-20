@@ -44,39 +44,6 @@ namespace Pacmania.InGame.Arenas
                      { 100, 350, 350, 350, 350, 410, 410, 410, 420, 420, 420, 420, 900 },
                      { 100, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900 } };
 
-        public override RecordKeyboard.KeyboardSnapshot[] DemoSteps
-        {
-            get { return steps; }
-        }
-
-        private static readonly RecordKeyboard.KeyboardSnapshot[] steps = null;
-        
-        /*{new RecordKeyboard.KeyboardSnapshot(0, -1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(1, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(172, 0, -1, false),
-new RecordKeyboard.KeyboardSnapshot(210, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(222, 0, 1, false),
-new RecordKeyboard.KeyboardSnapshot(270, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(352, 1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(401, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(424, 0, 1, false),
-new RecordKeyboard.KeyboardSnapshot(465, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(500, 1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(546, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(708, 0, -1, false),
-new RecordKeyboard.KeyboardSnapshot(762, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(864, -1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(970, -1, -1, false),
-new RecordKeyboard.KeyboardSnapshot(984, 0, -1, false),
-new RecordKeyboard.KeyboardSnapshot(1031, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(1037, 1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(1073, 0, 0, false),
-new RecordKeyboard.KeyboardSnapshot(1080, 1, 0, false),
-new RecordKeyboard.KeyboardSnapshot(1128, 0, 0, false),
-
-
-                                                            new RecordKeyboard.KeyboardSnapshot(10000000, 0, 0, false)};*/
-
         protected override void Awake() 
         {
             PacmanStartTile = new Vector2Int(6, 12);
