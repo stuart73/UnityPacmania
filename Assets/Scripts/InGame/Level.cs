@@ -84,7 +84,7 @@ namespace Pacmania.InGame
         {
             if (Pacman != null)
             {
-                // Reguster with things the level needs to know about.
+                // Register with things the level needs to know about.
                 PacmanCollision pacmanCollision = Pacman.GetComponent<PacmanCollision>();
                 pacmanCollision.Dying += Pacman_Dying;
                 pacmanCollision.EatenPellete += Pacman_EatenPellete;

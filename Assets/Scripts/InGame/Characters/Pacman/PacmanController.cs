@@ -56,7 +56,7 @@ namespace Pacmania.InGame.Characters.Pacman
 
             if (arena != null)
             {
-                startPosition = characterMovement.Arena.GetArenaPositionForTileCenter(characterMovement.Arena.PacmanStartTile);
+                startPosition = arena.GetArenaPositionForTileCenter(arena.PacmanStartTile);
             }
 
             characterMovement.SetInitialPosition(startPosition);
@@ -111,7 +111,6 @@ namespace Pacmania.InGame.Characters.Pacman
             if (randomMovement != null && randomMovement.enabled == true)
             {
                 randomMovement.Next(characterMovement.CurrentDirection, out bool jump, out Vector2 movement);
-
                 selectedJump = jump;
                 desiredDirection = movement;
             }
@@ -119,7 +118,6 @@ namespace Pacmania.InGame.Characters.Pacman
             if (selectedJump == true)
             {
                 GetComponent<Jumping>().Jump();
-
                 selectedJump = false;
             }
 
