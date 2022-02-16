@@ -29,7 +29,8 @@ Other keys (when in game):-
   f3 = Infinite lives on.
   f4 = Infinite lives off.
   f5 = Finish level now.
-
+  escape = quit game (back to windows)
+ 
 ## Technologies
 This game was created with Unity and C#.
 
