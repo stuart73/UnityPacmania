@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2864579611453041038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2864579611453041025}
+  - component: {fileID: 2864579611453041024}
+  - component: {fileID: 2864579611453041039}
+  m_Layer: 0
+  m_Name: KeyboardShortcuts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2864579611453041025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864579611453041038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.92449814, y: 0.70759237, z: -2.6967773}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2864579611453041024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864579611453041038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25df77d8ebffa7143b00ffc4a15fb2ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2864579611453041039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864579611453041038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2ea150eed6953194c8cbf68cc4ee0d84,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 384f8b38-a605-4b89-8ef6-bd50ed1ee420
+    m_ActionName: Player controls/Movement[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/GIC
+      USB Joystick/stick/up,/GIC USB Joystick/stick/down,/GIC USB Joystick/stick/left,/GIC
+      USB Joystick/stick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 39574317-9f48-447c-a8de-f150fc35cf58
+    m_ActionName: Player controls/MovementSwipe
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0dab9ecc-5c1c-4b2a-89bf-26e9c19e7248
+    m_ActionName: Player controls/Jump[/Keyboard/space,/GIC USB Joystick/trigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f5800054-63a2-4dc1-a2cc-c259f7de2748
+    m_ActionName: Cheats/Invincible on[/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e0527538-3a70-461e-8299-63808d3edfc9
+    m_ActionName: Cheats/Invincible off[/Keyboard/f2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c540e99-2c90-4ffa-bd88-0b57c8b95a82
+    m_ActionName: Cheats/ Infinite lives on[/Keyboard/f3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c926255b-dfa6-4b74-970a-82296ee730c5
+    m_ActionName: Cheats/Infinite lives off[/Keyboard/f4]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ed541fbb-2b04-478c-99aa-88eea42444d9
+    m_ActionName: Cheats/End level now[/Keyboard/f5]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2864579611453041024}
+        m_TargetAssemblyTypeName: KeyboardShortcuts, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bd367848-8162-40ec-8f79-c5279965b7e9
+    m_ActionName: Shortcuts/Quit game[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Shortcuts
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

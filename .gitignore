@@ -43,3 +43,6 @@ Thumbs.db
 .collabignore
 .vs*
 
+.plastic/plastic.workspace
+.plastic/plastic.selector
+.plastic/plastic.wktree

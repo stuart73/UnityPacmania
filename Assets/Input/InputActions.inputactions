@@ -352,6 +352,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Shortcuts",
+            "id": "9e80db44-a07b-4517-ba24-70bb99d04f58",
+            "actions": [
+                {
+                    "name": "Quit game",
+                    "type": "Button",
+                    "id": "bd367848-8162-40ec-8f79-c5279965b7e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c42e38df-f615-4e84-a3eb-1eb680439e28",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit game",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

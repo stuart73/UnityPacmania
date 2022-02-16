@@ -485,6 +485,75 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 55174017191091422}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1635517075
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8489963
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.4151847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.3935547
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041025, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2864579611453041038, guid: fed9fc7be50700a49b422a76733c2ffa,
+        type: 3}
+      propertyPath: m_Name
+      value: KeyboardShortcuts
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fed9fc7be50700a49b422a76733c2ffa, type: 3}
 --- !u!1001 &1649797221
 PrefabInstance:
   m_ObjectHideFlags: 0
