@@ -3,6 +3,11 @@ A near perfect clone of the arcade game Pacmania done in the Unity game engine. 
 
 Because this a Unity game, it can work on Windows, Mac, Linux and Mobile.  I’ve only tested this on Windows and Android so far.
 
+*** click on this link for The tutorial youtube video that explains how to code this game in Unity.
+
+https://www.youtube.com/watch?v=fsbwAHDhPkk&t=634s
+
+
 ![App Screenshot](https://www.photovidshow.com/pacmania/pacmania.jpg)
 
 ## How-to-setup
