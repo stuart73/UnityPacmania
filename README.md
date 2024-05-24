@@ -8,7 +8,7 @@ Because this a Unity game, it can work on Windows, Mac, Linux and Mobile.  I’v
 https://www.youtube.com/watch?v=fsbwAHDhPkk&t=634s
 
 
-![App Screenshot](https://www.photovidshow.com/pacmania/pacmania.jpg)
+![App Screenshot](https://github.com/stuart73/UnityPacmania/blob/master/pamania.jpg)
 
 ## How-to-setup
 This project requires:-
